@@ -1,0 +1,29 @@
+.green {
+  color: $green !important;
+}
+
+.red {
+  color: $red !important;
+}
+
+.bg-red {
+  background-color: $red !important;
+}
+
+.bg-green {
+  background-color: $green !important;
+}
+
+.grey {
+  color: $grey-medium !important;
+}
+
+.margin-small {
+  margin: 2rem 0;
+}
+
+.hidden {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0;
+}

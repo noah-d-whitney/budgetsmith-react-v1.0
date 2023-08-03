@@ -1,0 +1,28 @@
+.text-field {
+  transition: $transition--default;
+  border: none;
+  border-radius: $border-radius-deafult;
+  padding: $padding--side-1-5;
+  color: $grey-dark;
+  font-family: inherit;
+  font-size: 1.8rem;
+  @include dimensions(100%, 100%);
+
+  &:active,
+  &:focus {
+    outline: none;
+  }
+
+  &::placeholder {
+    color: $grey-medium;
+  }
+
+  &--form {
+    border: $border--greymedium-3;
+
+    &:active,
+    &:focus {
+      border-color: $primary__blue-medium-dark;
+    }
+  }
+}

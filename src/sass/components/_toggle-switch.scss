@@ -1,0 +1,29 @@
+.toggle-switch {
+  @include dimensions(2.4rem, 4.4rem);
+  border-radius: 100px;
+  position: relative;
+  background-color: $primary__blue-light;
+
+  &__btn {
+    @include circle(2rem);
+    background-color: $primary__blue-table-alt;
+    position: absolute;
+    left: 0.2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: $transition--default;
+
+    &--toggled {
+      left: 2.2rem;
+    }
+  }
+
+  &:hover,
+  &:active {
+    cursor: pointer;
+
+    .toggle-switch__btn {
+      transform: translateY(-50%) scale(0.8);
+    }
+  }
+}

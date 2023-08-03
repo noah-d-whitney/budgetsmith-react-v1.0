@@ -1,0 +1,16 @@
+.help-icon {
+  height: 2.5rem;
+  width: 2.5rem;
+  position: absolute;
+  fill: $primary__blue-table-alt;
+  top: 50%;
+  left: 1rem;
+  transform: translateY(-50%);
+  transition: all 0.3s;
+
+  &:hover,
+  &:active {
+    fill: $primary__blue-medium-light;
+    cursor: pointer;
+  }
+}

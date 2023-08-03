@@ -1,0 +1,17 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  // This defines 1rem == 10px
+  font-size: 62.5%;
+  background-color: $primary__blue-very-light;
+}
+
+body {
+  box-sizing: border-box;
+}

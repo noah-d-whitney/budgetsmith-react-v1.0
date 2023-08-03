@@ -1,0 +1,10 @@
+.searchbar {
+  @include action-dimensions;
+  @include border($primary__blue-medium-dark, 3px);
+  @include flex(center);
+  background-color: white;
+
+  .text-field {
+    width: 75%;
+  }
+}

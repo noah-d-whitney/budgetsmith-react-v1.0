@@ -1,0 +1,14 @@
+.taskbar {
+  height: fit-content;
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-end;
+
+  &-itemcontainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

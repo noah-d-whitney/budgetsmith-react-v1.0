@@ -1,0 +1,189 @@
+.btn {
+  transition: $transition--default;
+  border: none;
+  border-radius: $border-radius-deafult;
+  color: $grey-very-light;
+  font-size: 1.8rem;
+  font-weight: 400;
+  @include flex(center);
+
+  &:hover,
+  &:active {
+    cursor: pointer;
+    background-color: $primary__blue-dark;
+  }
+
+  &--field {
+    border-radius: 0;
+    background-color: $primary__blue-medium-dark;
+    width: 25%;
+    min-width: 5.5rem;
+    height: 100%;
+
+    &__icon {
+      width: 3rem;
+      fill: $grey-very-light;
+    }
+  }
+
+  &--quick-action {
+    background-color: $primary__blue-medium;
+    height: 100%;
+    padding: $padding--side-1-5;
+
+    &:hover,
+    &:active {
+      background-color: $primary__blue-medium-dark;
+    }
+  }
+
+  &--task {
+    background-color: $primary__blue-medium-dark;
+    padding: $padding--side-1-5;
+    min-width: fit-content;
+    height: $height--action-component;
+    font-weight: 700;
+
+    &-icon {
+      margin-left: 1rem;
+      height: 2rem;
+      fill: $grey-very-light;
+      transition: $transition--default;
+    }
+
+    &--cancel {
+      background-color: transparent;
+      color: $red;
+      @include border($red, 3px);
+
+      .btn--task-icon {
+        fill: $red;
+      }
+
+      &:hover,
+      &:active {
+        background-color: $red;
+        color: white;
+
+        .btn--task-icon {
+          fill: white;
+        }
+      }
+    }
+  }
+
+  &--radio {
+    @include circle(3rem);
+    @include flex(center);
+    @include filled;
+    background-color: white;
+    border: $border--greymedium-3;
+
+    &:hover,
+    &:active {
+      background-color: $grey-medium;
+      cursor: pointer;
+    }
+
+    &__icon {
+      @include circle(60%);
+      background-color: white;
+    }
+
+    &.filled:hover,
+    &.filled:active {
+      cursor: auto;
+    }
+  }
+
+  &--icon {
+    background-color: white;
+    @include border($grey-medium, 3px);
+    @include dimensions(5rem, 5rem);
+    @include filled;
+
+    &__icon {
+      @include dimensions(75%, 75%);
+      fill: $grey-medium;
+    }
+
+    &--form {
+      @include dimensions(5rem, 5rem);
+    }
+
+    &:hover,
+    &:active {
+      background-color: $grey-medium;
+      cursor: pointer;
+
+      svg {
+        fill: white;
+      }
+    }
+  }
+}
+
+.fullpage-table {
+  &__upload-btn {
+    @include flex(unset);
+    color: $grey-medium;
+    font-size: 1.4rem;
+    font-weight: 700;
+    fill: $grey-medium;
+    transition: $transition--default;
+
+    &__icon {
+      height: 2.4rem;
+      margin-right: 1rem;
+      fill: inherit;
+    }
+
+    &:hover,
+    &:active {
+      color: $primary__blue-medium-dark;
+      fill: $primary__blue-dark;
+      cursor: pointer;
+    }
+  }
+
+  &__edit-icon,
+  &__delete-icon {
+    height: 2.4rem;
+    fill: $grey-medium;
+    transition: $transition--default;
+
+    &:hover,
+    &:active {
+      fill: $primary__blue-medium-dark;
+      cursor: pointer;
+    }
+  }
+
+  &__flag-btn {
+    height: 2.4rem;
+    fill: $grey-medium;
+    transition: all 0.2s;
+
+    &.filled {
+      fill: $primary__blue-medium-dark;
+
+      &:hover,
+      &:active {
+        fill: $grey-medium;
+      }
+    }
+  }
+
+  &__view-activity {
+    all: unset;
+    border-bottom: 1px solid $grey-medium-dark;
+    padding-bottom: 5px;
+    transition: $transition--default;
+
+    &:hover,
+    &:active {
+      cursor: pointer;
+      padding-bottom: 2px;
+    }
+  }
+}

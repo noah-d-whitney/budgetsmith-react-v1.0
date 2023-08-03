@@ -1,0 +1,70 @@
+.dropdown {
+  position: relative;
+  transition: $transition--default;
+  background-color: white;
+  padding: 0 1.5rem;
+  width: 100%;
+  @include border($primary__blue-medium-dark, 3px);
+  @include dimensions(5rem, 100%);
+  @include flex(space-between);
+
+  &__icon {
+    height: 2rem;
+    fill: $primary__blue-medium-dark;
+  }
+
+  &__text {
+    flex-grow: 1;
+    font-size: 1.8rem;
+  }
+
+  &__menu {
+    box-sizing: content-box;
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    left: -3px;
+    flex-direction: column;
+    transform: translateY(100%);
+    z-index: 10;
+    border-top-color: $primary__blue-medium-dark;
+    width: 100%;
+    @include border($grey-medium, 3px);
+  }
+
+  &__option {
+    transition: $transition--default;
+    background-color: white;
+    padding: 1.5rem 0.75rem;
+    color: $grey-medium-dark;
+    font-size: 1.8rem;
+
+    &:hover,
+    &:active {
+      background-color: $primary__blue-medium;
+      color: white;
+    }
+  }
+
+  &--with-btn {
+    justify-content: unset;
+    padding: 0 0 0 1.5rem;
+    gap: 1.5rem;
+
+    &btn {
+      width: 25%;
+    }
+  }
+
+  &--form {
+    border-color: $grey-medium;
+    color: $grey-medium;
+  }
+
+  &:hover,
+  &:active {
+    cursor: pointer;
+    background-color: $primary__blue-light;
+    color: $grey-dark;
+  }
+}

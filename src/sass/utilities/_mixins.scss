@@ -1,0 +1,39 @@
+@mixin border($color, $width) {
+  border-radius: $border-radius-deafult;
+  border: $width solid $color;
+}
+
+@mixin flex($justify) {
+  display: flex;
+  align-items: center;
+  justify-content: $justify;
+}
+
+@mixin action-dimensions {
+  height: $height--action-component;
+  width: 100%;
+}
+
+@mixin dimensions($height, $width) {
+  height: $height;
+  width: $width;
+}
+
+@mixin circle($circum) {
+  height: $circum;
+  width: $circum;
+  border-radius: 100%;
+}
+
+@mixin filled {
+  &.filled,
+  &.filled:hover,
+  &.filled:active {
+    background-color: $primary__blue-medium-dark;
+    border-color: $primary__blue-medium-dark;
+
+    svg {
+      fill: white;
+    }
+  }
+}

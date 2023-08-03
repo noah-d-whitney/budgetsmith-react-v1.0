@@ -1,0 +1,91 @@
+.container {
+  display: flex;
+
+  &--view {
+    height: $page-height-minus-bars;
+    width: 100%;
+    padding: 3rem;
+  }
+
+  &--3-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 3rem;
+  }
+
+  &--2-cols {
+    display: flex;
+    justify-content: space-between;
+    gap: 3rem;
+    height: fit-content;
+  }
+
+  &--table-w-header {
+    flex-direction: column;
+    gap: 3rem;
+    width: 100%;
+  }
+}
+
+.page {
+  &__home {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    & .container {
+      &--3-cols {
+        height: 35%;
+      }
+      &--2-cols {
+        height: 60%;
+      }
+    }
+  }
+
+  &__transactions,
+  &__budget {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}
+
+.form__fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 2rem;
+  column-gap: 3rem;
+
+  &--new-transaction {
+    grid-template-areas:
+      'type type cat cat cat cat'
+      'amount amount amount date date date'
+      'flag note note note note note'
+      'receipt receipt receipt receipt receipt receipt';
+
+    #new-transaction {
+      &--type {
+        grid-area: type;
+      }
+      &--category {
+        grid-area: cat;
+      }
+      &--amount {
+        grid-area: amount;
+      }
+      &--date {
+        grid-area: date;
+      }
+      &--flag {
+        grid-area: flag;
+      }
+      &--note {
+        grid-area: note;
+      }
+      &--receipt {
+        grid-area: receipt;
+      }
+    }
+  }
+}

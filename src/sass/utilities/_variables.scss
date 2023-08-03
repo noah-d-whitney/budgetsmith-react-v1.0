@@ -1,0 +1,35 @@
+// COLORS
+$green: #51cf66;
+$red: #fa5252;
+$primary__blue-very-light: #edf2ff;
+$primary__blue-light: #bac8ff;
+$primary__blue-medium-light: #748ffc;
+$primary__blue-table-alt: #5c7cfa;
+$primary__blue-medium: #4c6ef5;
+$primary__blue-medium-dark: #4263eb;
+$primary__blue-dark: #364fc7;
+$grey-very-light: #f8f9fa;
+$grey-medium: #adb5bd;
+$grey-medium-dark: #495057;
+$grey-dark: #343a40;
+
+// NAVBAR
+$status-bar-height: 4rem;
+$action-bar-height: 6.5rem;
+$nav-bar-width: 6.5rem;
+$page-height-minus-bars: calc(
+  100vh - ($action-bar-height + $status-bar-height)
+);
+
+// BORDER
+$border-radius-deafult: 5px;
+$border--greymedium-3: 3px solid $grey-medium;
+
+// HEIGHT
+$height--action-component: 5rem;
+
+// TRANSITIONS
+$transition--default: all 0.2s ease-in;
+
+// PADDING
+$padding--side-1-5: 0 1.5rem;

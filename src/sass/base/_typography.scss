@@ -1,0 +1,121 @@
+body {
+  letter-spacing: 1.1;
+  font-family: 'Lato', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 400;
+}
+
+.status-bar p {
+  text-transform: uppercase;
+  color: white;
+  font-weight: 700;
+}
+
+h1 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: $grey-medium-dark;
+  text-align: center;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+th {
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+td {
+  font-size: 1.6rem;
+  font-weight: 400;
+}
+
+.heading-icon {
+  display: inline-block;
+  fill: $grey-medium;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-left: 1rem;
+  transform: translateY(0.3rem);
+  transition: all 0.3s;
+
+  &:hover,
+  &:active {
+    fill: $grey-medium-dark;
+    cursor: pointer;
+  }
+}
+
+.action-label {
+  text-transform: uppercase;
+  color: $grey-medium;
+  font-weight: 800;
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+  white-space: nowrap;
+}
+
+.label {
+  font-weight: 800;
+  font-size: 1.8rem;
+  text-transform: uppercase;
+
+  &--action {
+    color: $grey-medium;
+    margin-bottom: 0.8rem;
+  }
+
+  &--form {
+    color: $primary__blue-medium-light;
+  }
+
+  &--radio-option {
+    margin-left: 1rem;
+    text-transform: none;
+    color: $grey-medium-dark;
+    font-weight: 400;
+  }
+}
+
+.upload-path {
+  color: $grey-medium;
+  font-weight: 400;
+  font-size: 1.8rem;
+}
+
+.page-title {
+  font-size: 3rem;
+  color: $grey-dark;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  padding-bottom: 1.5rem;
+  display: block;
+  border-bottom: 2px solid $grey-medium;
+}
+
+.toggle-switch__text {
+  margin: 0 0.5rem;
+  text-align: center;
+  text-transform: uppercase;
+  color: $primary__blue-very-light;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.modal {
+  &__message {
+    font-size: 2.4rem;
+    color: $grey-medium-dark;
+    max-width: 50rem;
+    text-align: center;
+    margin: 1.5rem 0 3rem 0;
+    line-height: 1.5;
+  }
+}
+
+// TODO add all typography to file

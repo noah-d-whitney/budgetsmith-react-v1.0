@@ -1,0 +1,246 @@
+.table {
+  border-radius: $border-radius-deafult;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 5px 10px rgba($color: #000000, $alpha: 0.1);
+  @include dimensions(100%, 100%);
+
+  &__row {
+    display: grid;
+
+    &--header {
+      background-color: $primary__blue-medium-dark;
+      box-shadow: 0 5px 5px rgba($color: #000000, $alpha: 0.15);
+      z-index: 5;
+    }
+  }
+
+  &__body {
+    background-color: $primary__blue-light;
+    height: 100%;
+    overflow-y: scroll;
+  }
+
+  &__cell {
+    @include flex(center);
+    &--heading {
+      color: white;
+      font-weight: 700;
+      font-size: 1.8rem;
+      text-transform: uppercase;
+      height: 6rem;
+
+      &.heading-vertical {
+        background-color: $primary__blue-medium;
+        height: unset;
+      }
+    }
+    &--body {
+      color: $grey-medium-dark;
+      background-color: white;
+      font-size: 2rem;
+    }
+  }
+
+  &--summary {
+    & .table__row {
+      grid-template-columns: 0.4fr 0.3fr 0.3fr;
+
+      &--body {
+        height: calc(100% / 3);
+      }
+    }
+
+    & .table__cell--body {
+      &:not(:last-child) {
+        border-right: 1px solid $grey-medium;
+      }
+    }
+  }
+
+  &--balance {
+    & .table__body {
+      background-color: $primary__blue-medium;
+      padding: 0 20%;
+    }
+    & .table__row {
+      &--body {
+        grid-template-columns: 1fr 1fr;
+        height: 50%;
+      }
+    }
+    & .table__cell {
+      &--body {
+        color: white;
+        background-color: $primary__blue-medium;
+      }
+    }
+  }
+
+  &--growth {
+    & .table__body {
+      background-color: white;
+      padding: 0 20%;
+    }
+    & .table__row {
+      &--body {
+        grid-template-columns: 1fr 1fr;
+        height: 50%;
+        overflow-y: scroll;
+      }
+    }
+    & .table__cell {
+      &--heading {
+        &.heading-vertical {
+          background-color: transparent;
+          color: $primary__blue-medium-dark;
+        }
+      }
+    }
+  }
+
+  &--large-4-cols {
+    & .table__row {
+      grid-template-columns: 4fr 2fr 2fr 2fr;
+
+      &--body {
+        height: 5.5rem;
+        &:last-child {
+          border-bottom: 1px solid $grey-medium;
+        }
+      }
+
+      &:nth-child(even) {
+        .table__cell {
+          &--heading {
+            background-color: $primary__blue-table-alt;
+          }
+          &--body {
+            background-color: white;
+          }
+        }
+      }
+    }
+
+    & .table__cell--body {
+      background-color: $grey-very-light;
+      &:not(:last-child) {
+        border-right: 1px solid $grey-medium;
+      }
+    }
+  }
+}
+
+// TODO refactor
+.fullpage-table {
+  @include dimensions(100%, 100%);
+  border-radius: $border-radius-deafult;
+  box-shadow: 0 5px 10px rgba($color: #000000, $alpha: 0.1);
+  background-color: white;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  [class*='__cell'] {
+    @include flex(center);
+    text-transform: uppercase;
+  }
+
+  &__body {
+    overflow-y: scroll;
+    max-height: 100%;
+    scroll-behavior: smooth;
+  }
+
+  &__cell {
+    &--heading {
+      color: white;
+      font-weight: 700;
+      font-size: 1.8rem;
+      letter-spacing: 1px;
+
+      &__sort-icon {
+        width: 12px;
+        height: 8px;
+        background-color: $grey-very-light;
+        clip-path: polygon(0 0, 100% 0, 50% 100%);
+        cursor: pointer;
+      }
+
+      span {
+        margin-right: 8px;
+      }
+    }
+    &--body {
+      color: $grey-medium-dark;
+      font-size: 2rem;
+      padding: 0 1rem;
+
+      &.value {
+        &--amount,
+        &--category {
+          font-weight: 700;
+        }
+
+        &--note {
+          font-size: 1.6rem;
+        }
+
+        &--view-activity {
+          font-size: 1.4rem;
+        }
+
+        &--tag {
+          font-size: 1.2rem;
+        }
+      }
+
+      &:not(:last-child) {
+        border-right: 1px solid $grey-medium;
+      }
+    }
+  }
+
+  &__row {
+    display: grid;
+
+    &--header {
+      height: 5rem;
+      background-color: $primary__blue-medium-dark;
+      box-shadow: 0 5px 5px rgba($color: #000000, $alpha: 0.15);
+    }
+
+    &--body {
+      height: 5rem;
+
+      &:last-child {
+        border-bottom: 1px solid $grey-medium;
+      }
+
+      &:nth-child(even) {
+        background-color: $grey-very-light;
+      }
+    }
+  }
+
+  &__type-card {
+    padding: 0.4rem;
+    background-color: $red;
+    border-radius: $border-radius-deafult;
+    color: $grey-very-light;
+  }
+
+  &--transactions {
+    .fullpage-table__row {
+      grid-template-columns: 5rem 5rem 1fr 1fr 1fr 1.75fr 1.75fr 12rem 5rem 5rem;
+    }
+  }
+
+  &--categories {
+    .fullpage-table__row {
+      grid-template-columns: 5rem 1.5fr 1fr 1fr 1fr 0.75fr 0.75fr 12.5rem 5rem 5rem;
+    }
+  }
+}

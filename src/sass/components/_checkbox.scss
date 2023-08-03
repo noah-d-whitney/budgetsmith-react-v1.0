@@ -1,0 +1,37 @@
+.checkbox {
+  @include flex(center);
+  @include filled;
+  transition: $transition--default;
+  background-color: white;
+
+  &--form {
+    @include dimensions(5rem, 5rem);
+    @include border($grey-medium, 3px);
+  }
+
+  &--table {
+    @include border($grey-medium, 2px);
+    @include dimensions(2rem, 2rem);
+
+    &--bulk {
+      border: none;
+      background-color: $grey-very-light;
+
+      &__icon {
+        @include circle(1rem);
+        background-color: $primary__blue-medium-dark;
+      }
+    }
+  }
+
+  &__icon {
+    @include dimensions(80%, 80%);
+    fill: white;
+  }
+
+  &:hover,
+  &:active {
+    background-color: $grey-medium;
+    cursor: pointer;
+  }
+}

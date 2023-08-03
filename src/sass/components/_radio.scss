@@ -1,0 +1,9 @@
+.radio {
+  height: $height--action-component;
+  @include flex(unset);
+  gap: 1.5rem;
+
+  &-option {
+    @include flex(space-between);
+  }
+}
