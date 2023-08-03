@@ -402,6 +402,9 @@ td {
   border-radius: 100px;
   border: 3px solid #748ffc;
 }
+.action-bar__profile-picture:hover, .action-bar__profile-picture:active {
+  cursor: pointer;
+}
 .action-bar__message {
   color: white;
 }

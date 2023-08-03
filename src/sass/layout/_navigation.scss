@@ -44,6 +44,11 @@
     height: 5rem;
     border-radius: 100px;
     border: 3px solid $primary__blue-medium-light;
+
+    &:hover,
+    &:active {
+      cursor: pointer;
+    }
   }
 
   &__message {
@@ -100,7 +105,7 @@
     background-color: $primary__blue-very-light;
     width: 5px;
     height: $nav-bar-width;
-    content: '';
+    content: "";
   }
 
   &::after {
@@ -111,7 +116,7 @@
     background-color: $primary__blue-medium-dark;
     width: 1rem;
     height: 2rem;
-    content: '';
+    content: "";
     clip-path: polygon(0 0, 100% 50%, 0 100%);
   }
 
