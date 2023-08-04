@@ -9,6 +9,7 @@ import { BudgetPage } from "./components/BudgetPage";
 
 function App() {
   const [firstName, setFirstName] = useState("Lexie");
+  const [startingBalance, setStartingBalance] = useState(1000);
 
   class ActionBarAction {
     constructor(action, onClick) {
