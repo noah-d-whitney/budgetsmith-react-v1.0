@@ -7,6 +7,7 @@
   @include border($primary__blue-medium-dark, 3px);
   @include dimensions(5rem, 100%);
   @include flex(space-between);
+  font-size: 1.8rem;
 
   &__icon {
     height: 2rem;
@@ -15,7 +16,6 @@
 
   &__text {
     flex-grow: 1;
-    font-size: 1.8rem;
   }
 
   &__menu {

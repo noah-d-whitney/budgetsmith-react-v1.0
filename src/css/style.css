@@ -873,6 +873,7 @@ td {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  font-size: 1.8rem;
 }
 .dropdown__icon {
   height: 2rem;
@@ -880,7 +881,6 @@ td {
 }
 .dropdown__text {
   flex-grow: 1;
-  font-size: 1.8rem;
 }
 .dropdown__menu {
   box-sizing: content-box;

@@ -6,10 +6,22 @@ import { Navbar } from "./components/Navbar";
 import { Routes, Route } from "react-router-dom";
 import { HomePage } from "./components/HomePage";
 import { BudgetPage } from "./components/BudgetPage";
+import { Category } from "./dataClasses";
 
 function App() {
   const [firstName, setFirstName] = useState("Lexie");
   const [startingBalance, setStartingBalance] = useState(1000);
+  const [categories, setCategories] = useState([
+    new Category("rent", "expense", 750, "bill"),
+    new Category("car payment", "expense", 500, "bill"),
+    new Category("gas", "expense", 100, "necessity"),
+    new Category("car insurance", "expense", 175, "bill"),
+    new Category("groceries", "expense", 350, "necessity"),
+    new Category("entertainment", "expense", 100, "discretionary"),
+    new Category("subscriptions", "expense", 80, "discretionary"),
+    new Category("paycheck", "income", 2750),
+    new Category("freelance", "income", 1000),
+  ]);
 
   class ActionBarAction {
     constructor(action, onClick) {
@@ -39,8 +51,12 @@ function App() {
           <Navbar />
 
           <Routes>
-            <Route exact path="/" Component={HomePage} />
-            <Route exact path="/budget" Component={BudgetPage} />
+            <Route exact path="/" element={<HomePage />} />
+            <Route
+              exact
+              path="/budget"
+              element={<BudgetPage categories={categories} />}
+            />
           </Routes>
         </div>
       </main>
