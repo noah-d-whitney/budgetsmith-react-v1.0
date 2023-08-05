@@ -1,4 +1,4 @@
-export function BalanceTable() {
+export function BalanceTable({ balances }) {
   return (
     <div className="table table--balance">
       <div className="table__row table__row--header">
@@ -9,7 +9,9 @@ export function BalanceTable() {
           <div className="table__cell table__cell--heading heading-vertical">
             Starting
           </div>
-          <div className="table__cell table__cell--body">$100</div>
+          <div className="table__cell table__cell--body">
+            ${balances.startingBalance}
+          </div>
         </div>
         <div className="table__row table__row--body">
           <div className="table__cell table__cell--heading heading-vertical">

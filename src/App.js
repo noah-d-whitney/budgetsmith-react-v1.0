@@ -23,6 +23,10 @@ function App() {
     new Category("freelance", "income", 1000),
   ]);
 
+  const balances = {
+    startingBalance,
+  };
+
   class ActionBarAction {
     constructor(action, onClick) {
       this.action = action;
@@ -51,7 +55,7 @@ function App() {
           <Navbar />
 
           <Routes>
-            <Route exact path="/" element={<HomePage />} />
+            <Route exact path="/" element={<HomePage balances={balances} />} />
             <Route
               exact
               path="/budget"

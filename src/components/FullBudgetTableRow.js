@@ -36,7 +36,7 @@ export function FullBudgetTableRow({ setSelected, selectedIDs, data }) {
       </div>
 
       <div className="fullpage-table__cell--body value--view-activity">
-        <a className="fullpage-table__view-activity" href="">
+        <a className="fullpage-table__view-activity" href="#">
           View activity
         </a>
       </div>

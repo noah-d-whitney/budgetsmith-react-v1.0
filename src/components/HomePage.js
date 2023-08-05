@@ -3,12 +3,12 @@ import { GrowthTable } from "./GrowthTable";
 import { SpendingSummaryTable } from "./SpendingSummaryTable";
 import { SummaryTable } from "./SummaryTable";
 
-export function HomePage() {
+export function HomePage({ balances }) {
   return (
     <div className="container--view page__home">
       <div className="container--3-cols">
         <SummaryTable />
-        <BalanceTable />
+        <BalanceTable balances={balances} />
         <GrowthTable />
       </div>
       <div className="container--2-cols">
