@@ -1,15 +1,11 @@
-import { useState } from "react";
-
-export function Dropdown({ options, typeFilter, onTypeFilter }) {
-  const [selected, setSelected] = useState();
-
+export function Dropdown({ name, options, classes, value, onChange }) {
   return (
     <select
-      value={typeFilter}
-      onChange={(e) => onTypeFilter(e.target.value)}
-      name=""
-      id=""
-      className="dropdown"
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      name={name}
+      id={name}
+      className={classes}
     >
       {options.map((option) => (
         <option key={crypto.randomUUID()} value={option}>

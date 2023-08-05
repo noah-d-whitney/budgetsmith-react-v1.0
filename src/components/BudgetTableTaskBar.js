@@ -3,20 +3,24 @@ import { Dropdown } from "./Dropdown";
 export function BudgetTableTaskBar({ typeFilter, onTypeFilter }) {
   return (
     <div className="taskbar margin-small">
-      <div class="taskbar-itemcontainer">
-        <label class="label label--action">Type</label>
+      <div className="taskbar-itemcontainer">
+        <label htmlFor="typeFilterSelect" className="label label--action">
+          Type
+        </label>
         <Dropdown
           options={["All", "Income", "Expense"]}
-          typeFilter={typeFilter}
-          onTypeFilter={onTypeFilter}
+          value={typeFilter}
+          onChange={onTypeFilter}
+          name="typeFilterSelect"
+          classes="dropdown"
         />
       </div>
-      <div class="taskbar-itemcontainer">
-        <label class="label label--action">Bulk Task</label>
+      <div className="taskbar-itemcontainer">
+        <label className="label label--action">Bulk Task</label>
         <Dropdown options={["All", "Income", "Expenses"]} />
       </div>
-      <div class="taskbar-itemcontainer">
-        <label class="label label--action">Bulk Task</label>
+      <div className="taskbar-itemcontainer">
+        <label className="label label--action">Bulk Task</label>
         <Dropdown options={["All", "Income", "Expenses"]} />
       </div>
     </div>
