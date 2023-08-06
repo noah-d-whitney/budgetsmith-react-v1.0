@@ -6,7 +6,7 @@ import { Navbar } from "./components/Navbar";
 import { Routes, Route } from "react-router-dom";
 import { HomePage } from "./components/HomePage";
 import { BudgetPage } from "./components/BudgetPage";
-import { Category, Transaction } from "./dataClasses";
+import { Category, Transaction, ActionBarAction } from "./dataClasses";
 
 function App() {
   // ANCHOR state
@@ -35,14 +35,76 @@ function App() {
     new Transaction("freelance", "income", 500, "Web design contract"),
   ]);
 
+  // ANCHOR derived state
   const balances = {
     startingBalance,
+    get plannedExpenses() {
+      return calcBudget("planned", "expense");
+    },
+    get actualExpenses() {
+      return calcBudget("actual", "expense");
+    },
+    get plannedIncome() {
+      return calcBudget("planned", "income");
+    },
+    get actualIncome() {
+      return calcBudget("actual", "income");
+    },
+    get currentBalance() {
+      return calcCurrentBalance();
+    },
+    get expensesDifference() {
+      return this.plannedExpenses - this.actualExpenses;
+    },
+    get incomeDifference() {
+      return this.actualIncome - this.plannedIncome;
+    },
+    get saved() {
+      return this.currentBalance - this.startingBalance;
+    },
+    get increase() {
+      return (this.saved / this.startingBalance) * 100;
+    },
   };
 
-  class ActionBarAction {
-    constructor(action, onClick) {
-      this.action = action;
-      this.onClick = onClick;
+  // ANCHOR calcCurrentBalance()
+  function calcCurrentBalance() {
+    return transactions.reduce(
+      (total, transaction) => transaction.amount + total,
+      balances.startingBalance
+    );
+  }
+
+  // ANCHOR calcCategorySpend()
+  function calcCategorySpend(category) {
+    return transactions.reduce((total, transaction) => {
+      if (transaction.category === category && transaction.type === "expense") {
+        return total + Math.abs(transaction.amount);
+      } else return total;
+    }, 0);
+  }
+
+  // ANCHOR calcBudget()
+  function calcBudget(calcType, transactionType) {
+    if (calcType === "planned") {
+      return Math.abs(
+        categories.reduce(
+          (total, category) =>
+            category.type === transactionType ? total + category.budget : total,
+          0
+        )
+      );
+    }
+    if (calcType === "actual") {
+      return Math.abs(
+        transactions.reduce(
+          (total, transaction) =>
+            transaction.type === transactionType
+              ? total + Math.abs(transaction.amount)
+              : total,
+          0
+        )
+      );
     }
   }
 

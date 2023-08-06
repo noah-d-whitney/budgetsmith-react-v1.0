@@ -1,4 +1,13 @@
-export function SummaryTable() {
+export function SummaryTable({ balances }) {
+  const {
+    plannedExpenses,
+    actualExpenses,
+    plannedIncome,
+    actualIncome,
+    incomeDifference,
+    expensesDifference,
+  } = balances;
+
   return (
     <div className="table table--summary">
       <div className="table__row table__row--header">
@@ -15,13 +24,13 @@ export function SummaryTable() {
             id="summary-table__planned-expenses"
             className="table__cell table__cell--body"
           >
-            $100
+            ${plannedExpenses}
           </div>
           <div
             id="summary-table__planned-income"
             className="table__cell table__cell--body"
           >
-            $100
+            ${plannedIncome}
           </div>
         </div>
         <div className="table__row table__row--body">
@@ -32,13 +41,13 @@ export function SummaryTable() {
             id="summary-table__actual-expenses"
             className="table__cell table__cell--body"
           >
-            $200
+            ${actualExpenses}
           </div>
           <div
             id="summary-table__actual-income"
             className="table__cell table__cell--body"
           >
-            $300
+            ${actualIncome}
           </div>
         </div>
         <div className="table__row table__row--body">
@@ -49,13 +58,13 @@ export function SummaryTable() {
             id="summary-table__expenses-diff"
             className="table__cell table__cell--body"
           >
-            $300
+            ${expensesDifference}
           </div>
           <div
             id="summary-table__income-diff"
             className="table__cell table__cell--body"
           >
-            $200
+            ${incomeDifference}
           </div>
         </div>
       </div>

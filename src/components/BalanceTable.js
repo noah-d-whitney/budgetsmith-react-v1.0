@@ -17,7 +17,9 @@ export function BalanceTable({ balances }) {
           <div className="table__cell table__cell--heading heading-vertical">
             Current
           </div>
-          <div className="table__cell table__cell--body">$200</div>
+          <div className="table__cell table__cell--body">
+            ${balances.currentBalance}
+          </div>
         </div>
       </div>
     </div>

@@ -1,4 +1,6 @@
-export function GrowthTable() {
+export function GrowthTable({ balances }) {
+  const { saved, increase } = balances;
+
   return (
     <div className="table table--growth">
       <div className="table__row table__row--header">
@@ -9,13 +11,13 @@ export function GrowthTable() {
           <div className="table__cell table__cell--heading heading-vertical">
             Saved
           </div>
-          <div className="table__cell table__cell--body">$100</div>
+          <div className="table__cell table__cell--body">${saved}</div>
         </div>
         <div className="table__row table__row--body">
           <div className="table__cell table__cell--heading heading-vertical">
             Increase
           </div>
-          <div className="table__cell table__cell--body">10%</div>
+          <div className="table__cell table__cell--body">{increase}%</div>
         </div>
       </div>
     </div>

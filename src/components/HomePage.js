@@ -7,9 +7,9 @@ export function HomePage({ balances }) {
   return (
     <div className="container--view page__home">
       <div className="container--3-cols">
-        <SummaryTable />
+        <SummaryTable balances={balances} />
         <BalanceTable balances={balances} />
-        <GrowthTable />
+        <GrowthTable balances={balances} />
       </div>
       <div className="container--2-cols">
         <SpendingSummaryTable />

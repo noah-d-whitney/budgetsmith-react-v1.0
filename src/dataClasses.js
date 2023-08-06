@@ -22,3 +22,11 @@ export class Transaction {
     this.id = crypto.randomUUID();
   }
 }
+
+// ANCHOR ActionBarAction
+export class ActionBarAction {
+  constructor(action, onClick) {
+    this.action = action;
+    this.onClick = onClick;
+  }
+}
