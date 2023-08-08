@@ -1,7 +1,4 @@
-import "../css/style.css";
-import { ActionBarActions } from "./ActionBarActions";
-
-export function ActionBar({ firstName, actions }) {
+export function ActionBar({ firstName, children }) {
   return (
     <div className="action-bar">
       <div className="action-bar__container">
@@ -13,9 +10,7 @@ export function ActionBar({ firstName, actions }) {
         />
         <h2 className="action-bar__message">Welcome back, {firstName}!</h2>
       </div>
-      <div className="action-bar__container">
-        <ActionBarActions actions={actions} />
-      </div>
+      <div className="action-bar__container">{children}</div>
     </div>
   );
 }

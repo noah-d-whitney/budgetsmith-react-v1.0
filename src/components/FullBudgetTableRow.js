@@ -1,6 +1,28 @@
 import { TableCheckbox } from "./TableCheckbox";
 
-export function FullBudgetTableRow({ setSelected, selectedIDs, data }) {
+export function FullBudgetTableRow({
+  setSelected,
+  selectedIDs,
+  data,
+  onDeleteCategory,
+}) {
+  function colorDifference(value) {
+    let returnValue;
+    if (value === 0) returnValue = "grey";
+
+    if (data.type === "expense") {
+      if (value > 0) returnValue = "red";
+      if (value < 0) returnValue = "green";
+    }
+
+    if (data.type === "income") {
+      if (value > 0) returnValue = "green";
+      if (value < 0) returnValue = "red";
+    }
+
+    return returnValue;
+  }
+
   return (
     <div className="fullpage-table__row fullpage-table__row--body">
       <div className="fullpage-table__cell--body value--checkbox">
@@ -18,8 +40,16 @@ export function FullBudgetTableRow({ setSelected, selectedIDs, data }) {
         ${Math.abs(data.budget)}
       </div>
 
-      <div className="fullpage-table__cell--body value--spent">$FIX</div>
-      <div className="fullpage-table__cell--body value--difference">$FIX</div>
+      <div className="fullpage-table__cell--body value--spent">
+        ${data.actual}
+      </div>
+      <div
+        className={`fullpage-table__cell--body value--difference ${colorDifference(
+          data.difference
+        )}`}
+      >
+        ${data.difference}
+      </div>
 
       <div className="fullpage-table__cell--body value--type">
         <div
@@ -52,6 +82,7 @@ export function FullBudgetTableRow({ setSelected, selectedIDs, data }) {
       </div>
       <div className="fullpage-table__cell--body value--delete">
         <svg
+          onClick={() => onDeleteCategory(data.id, data.name)}
           className="fullpage-table__delete-icon"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 256 256"

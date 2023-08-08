@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { FullBudgetTableRow } from "./FullBudgetTableRow";
 
-export function FullBudgetTable({ categories, typeFilter }) {
+export function FullBudgetTable({ tableData, typeFilter, onDeleteCategory }) {
   const [selectedIDs, setSelectedIDs] = useState([]);
   const [sorted, setSorted] = useState(null);
   const [sortOrder, setSortOrder] = useState(null);
 
-  const data = sorted ? sortBy(categories, sorted, sortOrder) : categories;
+  const data = sorted ? sortBy(tableData, sorted, sortOrder) : tableData;
   const filteredData = data.filter(
     (item) => item.type === typeFilter.toLowerCase()
   );
@@ -46,7 +46,6 @@ export function FullBudgetTable({ categories, typeFilter }) {
     setSelectedIDs([]);
   }
 
-  console.log(selectedIDs);
   return (
     <div className="fullpage-table fullpage-table--categories">
       <div className="fullpage-table__row fullpage-table__row--header">
@@ -75,8 +74,11 @@ export function FullBudgetTable({ categories, typeFilter }) {
           ></div>
         </div>
         <div className="fullpage-table__cell--heading">
-          <span>spent</span>
-          <div className="fullpage-table__cell--heading__sort-icon"></div>
+          <span>actual</span>
+          <div
+            onClick={() => handleClickSort("actual")}
+            className="fullpage-table__cell--heading__sort-icon"
+          ></div>
         </div>
         <div className="fullpage-table__cell--heading">
           <span>difference</span>
@@ -95,6 +97,7 @@ export function FullBudgetTable({ categories, typeFilter }) {
                 setSelected={toggleSelectedID}
                 selectedIDs={selectedIDs}
                 key={cat.id}
+                onDeleteCategory={onDeleteCategory}
               />
             ))
           : data.map((cat) => (
@@ -103,6 +106,7 @@ export function FullBudgetTable({ categories, typeFilter }) {
                 setSelected={toggleSelectedID}
                 selectedIDs={selectedIDs}
                 key={cat.id}
+                onDeleteCategory={onDeleteCategory}
               />
             ))}
       </div>

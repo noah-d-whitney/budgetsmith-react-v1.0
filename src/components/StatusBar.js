@@ -1,4 +1,3 @@
-import "../css/style.css";
 import { useDate } from "../hooks/useDate";
 
 export function StatusBar() {

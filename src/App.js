@@ -7,6 +7,11 @@ import { Routes, Route } from "react-router-dom";
 import { HomePage } from "./components/HomePage";
 import { BudgetPage } from "./components/BudgetPage";
 import { Category, Transaction, ActionBarAction } from "./dataClasses";
+import { ActionBarActions } from "./components/ActionBarActions";
+import { BalanceTable } from "./components/BalanceTable";
+import { GrowthTable } from "./components/GrowthTable";
+import { SpendingSummaryTable } from "./components/SpendingSummaryTable";
+import { SummaryTable } from "./components/SummaryTable";
 
 function App() {
   // ANCHOR state
@@ -67,6 +72,8 @@ function App() {
     },
   };
 
+  const budgetTableData = getBudgetTableData();
+
   // ANCHOR calcCurrentBalance()
   function calcCurrentBalance() {
     return transactions.reduce(
@@ -76,9 +83,9 @@ function App() {
   }
 
   // ANCHOR calcCategorySpend()
-  function calcCategorySpend(category) {
+  function calcCategoryActual(category) {
     return transactions.reduce((total, transaction) => {
-      if (transaction.category === category && transaction.type === "expense") {
+      if (transaction.category === category) {
         return total + Math.abs(transaction.amount);
       } else return total;
     }, 0);
@@ -108,6 +115,27 @@ function App() {
     }
   }
 
+  function getBudgetTableData() {
+    const budgetTableData = categories.map((cat) => {
+      const actual = calcCategoryActual(cat.name);
+      const difference = actual - cat.budget;
+      // cat.type === "expense" ? actual - cat.budget : cat.budget - actual;
+      return {
+        ...cat,
+        actual,
+        difference,
+      };
+    });
+
+    return budgetTableData;
+  }
+
+  function deleteCategory(id, name) {
+    setCategories((cats) => cats.filter((cat) => cat.id !== id));
+    setTransactions((trans) => trans.filter((tran) => tran.category !== name));
+    //show modal
+  }
+
   function test() {
     setFirstName((name) => name.toUpperCase());
   }
@@ -116,24 +144,45 @@ function App() {
     <>
       <header>
         <StatusBar />
-        <ActionBar
-          firstName={firstName}
-          actions={[
-            new ActionBarAction("New Transaction", test),
-            new ActionBarAction("New Category", test),
-          ]}
-        />
+        <ActionBar firstName={firstName}>
+          <ActionBarActions
+            actions={[
+              new ActionBarAction("New Transaction", test),
+              new ActionBarAction("New Category", test),
+            ]}
+          />
+        </ActionBar>
       </header>
       <main>
         <div className="container">
           <Navbar />
 
           <Routes>
-            <Route exact path="/" element={<HomePage balances={balances} />} />
+            <Route
+              exact
+              path="/"
+              element={
+                <HomePage>
+                  <div className="container--3-cols">
+                    <SummaryTable balances={balances} />
+                    <BalanceTable balances={balances} />
+                    <GrowthTable balances={balances} />
+                  </div>
+                  <div className="container--2-cols">
+                    <SpendingSummaryTable />
+                  </div>
+                </HomePage>
+              }
+            />
             <Route
               exact
               path="/budget"
-              element={<BudgetPage categories={categories} />}
+              element={
+                <BudgetPage
+                  tableData={budgetTableData}
+                  onDeleteCategory={deleteCategory}
+                />
+              }
             />
           </Routes>
         </div>

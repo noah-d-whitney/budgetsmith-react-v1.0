@@ -2,7 +2,7 @@ import { FullBudgetTable } from "./FullBudgetTable";
 import { BudgetTableTaskBar } from "./BudgetTableTaskBar";
 import { useState } from "react";
 
-export function BudgetPage({ categories }) {
+export function BudgetPage({ tableData, onDeleteCategory }) {
   const [typeFilter, setTypeFilter] = useState("All");
 
   return (
@@ -12,7 +12,11 @@ export function BudgetPage({ categories }) {
         typeFilter={typeFilter}
         onTypeFilter={setTypeFilter}
       />
-      <FullBudgetTable categories={categories} typeFilter={typeFilter} />
+      <FullBudgetTable
+        tableData={tableData}
+        typeFilter={typeFilter}
+        onDeleteCategory={onDeleteCategory}
+      />
     </div>
   );
 }
