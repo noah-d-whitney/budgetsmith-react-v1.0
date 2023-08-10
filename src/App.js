@@ -1,19 +1,21 @@
 import { useState } from "react";
 import { StatusBar } from "./components/StatusBar";
-import { ActionBar } from "./components/ActionBar";
+import { ActionBar } from "./components/ActionBar/ActionBar";
 import "./css/style.css";
 import { Navbar } from "./components/Navbar";
 import { Routes, Route } from "react-router-dom";
-import { HomePage } from "./components/HomePage";
-import { BudgetPage } from "./components/BudgetPage";
+import { HomePage } from "./pages/HomePage";
+import { BudgetPage } from "./pages/BudgetPage";
 import { Category, Transaction, ActionBarAction } from "./dataClasses";
-import { ActionBarActions } from "./components/ActionBarActions";
+import { ActionBarActions } from "./components/ActionBar/ActionBarActions";
 import { BalanceTable } from "./components/BalanceTable";
 import { GrowthTable } from "./components/GrowthTable";
 import { SpendingSummaryTable } from "./components/SpendingSummaryTable";
 import { SummaryTable } from "./components/SummaryTable";
 import { Modal } from "./components/Modal";
 import { NewCategoryModal } from "./components/newCategoryModal";
+import { TransactionsPage } from "./pages/TransactionsPage";
+import { FullTransactionTable } from "./components/FullTransactionTable";
 
 function App() {
   // ANCHOR state
@@ -141,6 +143,30 @@ function App() {
     // TODO show modal
   }
 
+  function deleteTransaction(id) {
+    setTransactions((trans) => trans.filter((tran) => tran.id !== id));
+    // TODO show modal
+  }
+
+  function flagTransaction(id) {
+    setTransactions(function (trans) {
+      const transaction = trans.find((t) => t.id === id);
+      const index = trans.indexOf(transaction);
+      transaction.flagged = !transaction.flagged;
+
+      const oldTransactions = trans.filter((tran) => tran.id !== id);
+      // const newTransactions = oldTransactions.splice(index, 0, transaction);
+      // console.log("TEST", newTransactions);
+      const newTransactions = [
+        ...oldTransactions.slice(0, index),
+        transaction,
+        ...oldTransactions.slice(index),
+      ];
+      console.log(newTransactions);
+      return newTransactions;
+    });
+  }
+
   function addCategory(name, type, budget, tag) {
     setCategories((cats) => [...cats, new Category(name, type, budget, tag)]);
   }
@@ -164,8 +190,12 @@ function App() {
         <ActionBar firstName={firstName}>
           <ActionBarActions
             actions={[
-              new ActionBarAction("New Transaction", test),
-              new ActionBarAction("New Category", test),
+              new ActionBarAction("New Transaction", () =>
+                openModal("new-category")
+              ),
+              new ActionBarAction("New Category", () =>
+                openModal("new-category")
+              ),
             ]}
           />
         </ActionBar>
@@ -186,7 +216,7 @@ function App() {
                     <GrowthTable balances={balances} />
                   </div>
                   <div className="container--2-cols">
-                    <SpendingSummaryTable />
+                    <SpendingSummaryTable budgetTableData={budgetTableData} />
                   </div>
                 </HomePage>
               }
@@ -200,6 +230,19 @@ function App() {
                   onDeleteCategory={deleteCategory}
                   openModal={openModal}
                 />
+              }
+            />
+            <Route
+              exact
+              path="/transactions"
+              element={
+                <TransactionsPage>
+                  <FullTransactionTable
+                    tableData={transactions}
+                    onDeleteTransaction={deleteTransaction}
+                    onFlagTransaction={flagTransaction}
+                  />
+                </TransactionsPage>
               }
             />
           </Routes>

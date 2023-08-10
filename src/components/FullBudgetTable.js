@@ -1,14 +1,22 @@
 import { useState } from "react";
 import { FullBudgetTableRow } from "./FullBudgetTableRow";
 
-export function FullBudgetTable({ tableData, typeFilter, onDeleteCategory }) {
+export function FullBudgetTable({
+  tableData,
+  typeFilter,
+  onDeleteCategory,
+  tagFilter,
+}) {
   const [selectedIDs, setSelectedIDs] = useState([]);
   const [sorted, setSorted] = useState(null);
   const [sortOrder, setSortOrder] = useState(null);
 
   const data = sorted ? sortBy(tableData, sorted, sortOrder) : tableData;
-  const filteredData = data.filter(
+  const typeFilteredData = data.filter(
     (item) => item.type === typeFilter.toLowerCase()
+  );
+  const tagFilteredData = data.filter(
+    (item) => item.tag === tagFilter.toLowerCase()
   );
 
   function sortBy(data, sortProp, order) {
@@ -91,7 +99,7 @@ export function FullBudgetTable({ tableData, typeFilter, onDeleteCategory }) {
       </div>
       <div id="budget-table-body" className="fullpage-table__body">
         {typeFilter !== "All"
-          ? filteredData.map((cat) => (
+          ? typeFilteredData.map((cat) => (
               <FullBudgetTableRow
                 data={cat}
                 setSelected={toggleSelectedID}
@@ -100,7 +108,9 @@ export function FullBudgetTable({ tableData, typeFilter, onDeleteCategory }) {
                 onDeleteCategory={onDeleteCategory}
               />
             ))
-          : data.map((cat) => (
+          : null}
+        {tagFilter !== "All"
+          ? tagFilteredData.map((cat) => (
               <FullBudgetTableRow
                 data={cat}
                 setSelected={toggleSelectedID}
@@ -108,7 +118,20 @@ export function FullBudgetTable({ tableData, typeFilter, onDeleteCategory }) {
                 key={cat.id}
                 onDeleteCategory={onDeleteCategory}
               />
-            ))}
+            ))
+          : null}
+
+        {typeFilter === "All" && tagFilter === "All"
+          ? data.map((cat) => (
+              <FullBudgetTableRow
+                data={cat}
+                setSelected={toggleSelectedID}
+                selectedIDs={selectedIDs}
+                key={cat.id}
+                onDeleteCategory={onDeleteCategory}
+              />
+            ))
+          : null}
       </div>
     </div>
   );

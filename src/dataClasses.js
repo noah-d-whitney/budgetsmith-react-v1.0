@@ -20,6 +20,7 @@ export class Transaction {
     this.receipt = receipt;
     this.date = new Date();
     this.id = crypto.randomUUID();
+    this.flagged = false;
   }
 }
 

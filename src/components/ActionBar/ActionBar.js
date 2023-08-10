@@ -3,7 +3,7 @@ export function ActionBar({ firstName, children }) {
     <div className="action-bar">
       <div className="action-bar__container">
         <img
-          src={require("../img/profile-placeholder.jpg")}
+          src={require("../../img/profile-placeholder.jpg")}
           alt="profile"
           className="action-bar__profile-picture"
           role="button"

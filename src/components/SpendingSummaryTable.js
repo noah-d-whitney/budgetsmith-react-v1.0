@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { SpendingSummaryTableRow } from "./SpendingSummaryTableRow";
 
-export function SpendingSummaryTable() {
+export function SpendingSummaryTable({ budgetTableData }) {
   return (
     <div className="container container--table-w-header">
       <h1>
@@ -24,9 +24,11 @@ export function SpendingSummaryTable() {
           <div className="table__cell table__cell--heading">Diff.</div>
         </div>
         <div className="table__body">
-          <SpendingSummaryTableRow />
-          <SpendingSummaryTableRow />
-          <SpendingSummaryTableRow />
+          {budgetTableData.map((cat) =>
+            cat.type === "expense" ? (
+              <SpendingSummaryTableRow key={cat.id} data={cat} />
+            ) : null
+          )}
         </div>
       </div>
     </div>

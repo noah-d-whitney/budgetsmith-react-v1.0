@@ -175,12 +175,17 @@
     fill: $grey-medium;
     transition: all 0.2s;
 
+    &:hover,
+    &:active {
+      cursor: pointer;
+    }
+
     &.filled {
       fill: $primary__blue-medium-dark;
 
       &:hover,
       &:active {
-        fill: $grey-medium;
+        cursor: pointer;
       }
     }
   }

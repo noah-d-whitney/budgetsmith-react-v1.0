@@ -1,7 +1,13 @@
 import { Dropdown } from "./Dropdown";
 import { TableTaskBarButton } from "./TableTaskBarButton";
 
-export function BudgetTableTaskBar({ typeFilter, onTypeFilter, openModal }) {
+export function BudgetTableTaskBar({
+  typeFilter,
+  onTypeFilter,
+  tagFilter,
+  onTagFilter,
+  openModal,
+}) {
   return (
     <div className="taskbar margin-small">
       <div className="taskbar-itemcontainer">
@@ -14,21 +20,26 @@ export function BudgetTableTaskBar({ typeFilter, onTypeFilter, openModal }) {
           onChange={onTypeFilter}
           name="typeFilterSelect"
           classes="dropdown"
+          disabled={tagFilter !== "All"}
+        />
+      </div>
+      <div className="taskbar-itemcontainer">
+        <label htmlFor="tagFilterSelect" className="label label--action">
+          Tag
+        </label>
+        <Dropdown
+          options={["All", "Income", "Bill", "Necessity", "Discretionary"]}
+          value={tagFilter}
+          onChange={onTagFilter}
+          name="tagFilterSelect"
+          classes="dropdown"
+          disabled={typeFilter !== "All"}
         />
       </div>
       <TableTaskBarButton
         text="New Category"
         callback={() => openModal("new-category")}
       />
-
-      <div className="taskbar-itemcontainer">
-        <label className="label label--action">Bulk Task</label>
-        <Dropdown options={["All", "Income", "Expenses"]} />
-      </div>
-      <div className="taskbar-itemcontainer">
-        <label className="label label--action">Bulk Task</label>
-        <Dropdown options={["All", "Income", "Expenses"]} />
-      </div>
     </div>
   );
 }

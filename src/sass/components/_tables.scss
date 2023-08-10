@@ -207,7 +207,7 @@
     display: grid;
 
     &--header {
-      height: 5rem;
+      min-height: 5rem;
       background-color: $primary__blue-medium-dark;
       box-shadow: 0 5px 5px rgba($color: #000000, $alpha: 0.15);
     }
@@ -234,7 +234,7 @@
 
   &--transactions {
     .fullpage-table__row {
-      grid-template-columns: 5rem 5rem 1fr 1fr 1fr 1.75fr 1.75fr 12rem 5rem 5rem;
+      grid-template-columns: 5rem 5rem 1fr 1fr 1fr 1.75fr 1.75fr 5rem;
     }
   }
 

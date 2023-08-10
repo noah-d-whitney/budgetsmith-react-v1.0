@@ -49,7 +49,7 @@ export function NewCategoryModal({ addCategory, closeModal }) {
           <div id="new-category--priority" className="form-container">
             <p className="label label--form">tag</p>
             <Dropdown
-              options={["Bill", "Necessity", "Discretionary"]}
+              options={["Bill", "Necessity", "Discretionary", "Income"]}
               classes="dropdown dropdown--form"
               name="tag"
               ref={categoryTagInput}

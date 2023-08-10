@@ -637,11 +637,14 @@ td {
   fill: #adb5bd;
   transition: all 0.2s;
 }
+.fullpage-table__flag-btn:hover, .fullpage-table__flag-btn:active {
+  cursor: pointer;
+}
 .fullpage-table__flag-btn.filled {
   fill: #4263eb;
 }
 .fullpage-table__flag-btn.filled:hover, .fullpage-table__flag-btn.filled:active {
-  fill: #adb5bd;
+  cursor: pointer;
 }
 .fullpage-table__view-activity {
   all: unset;
@@ -815,7 +818,7 @@ td {
   display: grid;
 }
 .fullpage-table__row--header {
-  height: 5rem;
+  min-height: 5rem;
   background-color: #4263eb;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.15);
 }
@@ -835,7 +838,7 @@ td {
   color: #f8f9fa;
 }
 .fullpage-table--transactions .fullpage-table__row {
-  grid-template-columns: 5rem 5rem 1fr 1fr 1fr 1.75fr 1.75fr 12rem 5rem 5rem;
+  grid-template-columns: 5rem 5rem 1fr 1fr 1fr 1.75fr 1.75fr 5rem;
 }
 .fullpage-table--categories .fullpage-table__row {
   grid-template-columns: 5rem 1.5fr 1fr 1fr 1fr 0.75fr 0.75fr 12.5rem 5rem 5rem;
