@@ -169,7 +169,7 @@ function App() {
   }
 
   function addCategory(name, type, budget, tag) {
-    setCategories((cats) => [...cats, new Category(name, type, budget, tag)]);
+    setCategories((cats) => [new Category(name, type, budget, tag), ...cats]);
   }
 
   function addTransaction(
@@ -182,8 +182,8 @@ function App() {
     date
   ) {
     setTransactions((cats) => [
-      ...cats,
       new Transaction(category, type, amount, note, receipt, flagged, date),
+      ...cats,
     ]);
   }
 
@@ -195,10 +195,6 @@ function App() {
     setModal(null);
   }
 
-  function test() {
-    setFirstName((name) => name.toUpperCase());
-  }
-
   return (
     <>
       <header>
@@ -207,7 +203,7 @@ function App() {
           <ActionBarActions
             actions={[
               new ActionBarAction("New Transaction", () =>
-                openModal("new-category")
+                openModal("new-transaction")
               ),
               new ActionBarAction("New Category", () =>
                 openModal("new-category")

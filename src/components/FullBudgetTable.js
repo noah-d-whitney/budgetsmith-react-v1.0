@@ -92,9 +92,7 @@ export function FullBudgetTable({
           <span>difference</span>
         </div>
         <div className="fullpage-table__cell--heading">type</div>
-        <div className="fullpage-table__cell--heading">priority</div>
-        <div className="fullpage-table__cell--heading"></div>
-        <div className="fullpage-table__cell--heading"></div>
+        <div className="fullpage-table__cell--heading">tag</div>
         <div className="fullpage-table__cell--heading"></div>
       </div>
       <div id="budget-table-body" className="fullpage-table__body">

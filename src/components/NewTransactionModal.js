@@ -25,7 +25,7 @@ export function NewTransactionModal({
       amountInput.current.value,
       noteInput.current.value,
       null,
-      flaggedInput.current.value,
+      flaggedInput.current.checked,
       dateInput.current.value
     );
     closeModal();
@@ -100,6 +100,7 @@ export function NewTransactionModal({
             </svg>
           </button>
           <button
+            onClick={closeModal}
             formAction="reset"
             className="btn btn--task btn--task--cancel"
           >
@@ -115,6 +116,7 @@ export function NewTransactionModal({
         </div>
       </form>
       <svg
+        onClick={closeModal}
         className="modal__close-icon"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 256 256"

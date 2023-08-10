@@ -18,7 +18,7 @@ export class Transaction {
     amount,
     note,
     receipt,
-    flagged,
+    flagged = false,
     date = new Date()
   ) {
     this.type = type;

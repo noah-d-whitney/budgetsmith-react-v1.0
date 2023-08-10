@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { FullTransactionTableRow } from "./FullTransactionTableRow";
-import { render } from "@testing-library/react";
 
 export function FullTransactionTable({
   tableData,
@@ -31,7 +30,7 @@ export function FullTransactionTable({
       return data.filter((x) => x.category === categoryFilter.toLowerCase());
     }
     if (flagFilter !== "All") {
-      const flagged = flagFilter === "Flagged";
+      const flagged = flagFilter === "Flagged" ? true : false;
       return data.filter((x) => x.flagged === flagged);
     }
   }
