@@ -12,11 +12,14 @@ import { BalanceTable } from "./components/BalanceTable";
 import { GrowthTable } from "./components/GrowthTable";
 import { SpendingSummaryTable } from "./components/SpendingSummaryTable";
 import { SummaryTable } from "./components/SummaryTable";
+import { Modal } from "./components/Modal";
+import { NewCategoryModal } from "./components/newCategoryModal";
 
 function App() {
   // ANCHOR state
   const [firstName, setFirstName] = useState("Lexie");
   const [startingBalance, setStartingBalance] = useState(1000);
+  const [modal, setModal] = useState(null);
   const [categories, setCategories] = useState([
     new Category("rent", "expense", 750, "bill"),
     new Category("car payment", "expense", 500, "bill"),
@@ -71,7 +74,9 @@ function App() {
       return (this.saved / this.startingBalance) * 100;
     },
   };
-
+  console.log("Render");
+  console.log("Planned Expenses", balances.plannedExpenses);
+  console.log(categories);
   const budgetTableData = getBudgetTableData();
 
   // ANCHOR calcCurrentBalance()
@@ -133,7 +138,19 @@ function App() {
   function deleteCategory(id, name) {
     setCategories((cats) => cats.filter((cat) => cat.id !== id));
     setTransactions((trans) => trans.filter((tran) => tran.category !== name));
-    //show modal
+    // TODO show modal
+  }
+
+  function addCategory(name, type, budget, tag) {
+    setCategories((cats) => [...cats, new Category(name, type, budget, tag)]);
+  }
+
+  function openModal(modal) {
+    setModal(modal);
+  }
+
+  function closeModal() {
+    setModal(null);
   }
 
   function test() {
@@ -181,12 +198,18 @@ function App() {
                 <BudgetPage
                   tableData={budgetTableData}
                   onDeleteCategory={deleteCategory}
+                  openModal={openModal}
                 />
               }
             />
           </Routes>
         </div>
       </main>
+      {modal === "new-category" ? (
+        <Modal closeModal={closeModal}>
+          <NewCategoryModal addCategory={addCategory} closeModal={closeModal} />
+        </Modal>
+      ) : null}
     </>
   );
 }

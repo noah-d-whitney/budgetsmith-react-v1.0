@@ -4,6 +4,7 @@
   gap: 1.5rem;
 
   &-option {
+    appearance: none;
     @include flex(space-between);
   }
 }

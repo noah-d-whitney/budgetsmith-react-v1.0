@@ -78,6 +78,7 @@
     @include filled;
     background-color: white;
     border: $border--greymedium-3;
+    position: relative;
 
     &:hover,
     &:active {
@@ -85,9 +86,19 @@
       cursor: pointer;
     }
 
-    &__icon {
+    &::before {
+      content: "";
       @include circle(60%);
       background-color: white;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    &:checked {
+      background-color: $primary__blue-medium-dark;
+      border-color: $primary__blue-medium-dark;
     }
 
     &.filled:hover,

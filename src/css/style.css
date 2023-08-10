@@ -541,6 +541,7 @@ td {
   justify-content: center;
   background-color: white;
   border: 3px solid #adb5bd;
+  position: relative;
 }
 .btn--radio.filled, .btn--radio.filled:hover, .btn--radio.filled:active {
   background-color: #4263eb;
@@ -553,11 +554,20 @@ td {
   background-color: #adb5bd;
   cursor: pointer;
 }
-.btn--radio__icon {
+.btn--radio::before {
+  content: "";
   height: 60%;
   width: 60%;
   border-radius: 100%;
   background-color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.btn--radio:checked {
+  background-color: #4263eb;
+  border-color: #4263eb;
 }
 .btn--radio.filled:hover, .btn--radio.filled:active {
   cursor: auto;
@@ -983,6 +993,7 @@ td {
   gap: 1.5rem;
 }
 .radio-option {
+  appearance: none;
   display: flex;
   align-items: center;
   justify-content: space-between;

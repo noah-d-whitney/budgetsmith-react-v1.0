@@ -2,7 +2,7 @@ import { FullBudgetTable } from "./FullBudgetTable";
 import { BudgetTableTaskBar } from "./BudgetTableTaskBar";
 import { useState } from "react";
 
-export function BudgetPage({ tableData, onDeleteCategory }) {
+export function BudgetPage({ tableData, onDeleteCategory, openModal }) {
   const [typeFilter, setTypeFilter] = useState("All");
 
   return (
@@ -11,6 +11,7 @@ export function BudgetPage({ tableData, onDeleteCategory }) {
       <BudgetTableTaskBar
         typeFilter={typeFilter}
         onTypeFilter={setTypeFilter}
+        openModal={openModal}
       />
       <FullBudgetTable
         tableData={tableData}
