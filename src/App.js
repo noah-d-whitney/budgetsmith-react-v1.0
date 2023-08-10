@@ -15,7 +15,7 @@ import { SummaryTable } from "./components/SummaryTable";
 import { Modal } from "./components/Modal";
 import { NewCategoryModal } from "./components/newCategoryModal";
 import { TransactionsPage } from "./pages/TransactionsPage";
-import { FullTransactionTable } from "./components/FullTransactionTable";
+import { NewTransactionModal } from "./components/NewTransactionModal";
 
 function App() {
   // ANCHOR state
@@ -80,6 +80,7 @@ function App() {
   console.log("Planned Expenses", balances.plannedExpenses);
   console.log(categories);
   const budgetTableData = getBudgetTableData();
+  const categoryNames = categories.map((cat) => cat.name);
 
   // ANCHOR calcCurrentBalance()
   function calcCurrentBalance() {
@@ -143,8 +144,8 @@ function App() {
     // TODO show modal
   }
 
-  function deleteTransaction(id) {
-    setTransactions((trans) => trans.filter((tran) => tran.id !== id));
+  function deleteTransaction(ids) {
+    setTransactions((trans) => trans.filter((tran) => !ids.includes(tran.id)));
     // TODO show modal
   }
 
@@ -169,6 +170,21 @@ function App() {
 
   function addCategory(name, type, budget, tag) {
     setCategories((cats) => [...cats, new Category(name, type, budget, tag)]);
+  }
+
+  function addTransaction(
+    category,
+    type,
+    amount,
+    note,
+    receipt,
+    flagged,
+    date
+  ) {
+    setTransactions((cats) => [
+      ...cats,
+      new Transaction(category, type, amount, note, receipt, flagged, date),
+    ]);
   }
 
   function openModal(modal) {
@@ -236,13 +252,13 @@ function App() {
               exact
               path="/transactions"
               element={
-                <TransactionsPage>
-                  <FullTransactionTable
-                    tableData={transactions}
-                    onDeleteTransaction={deleteTransaction}
-                    onFlagTransaction={flagTransaction}
-                  />
-                </TransactionsPage>
+                <TransactionsPage
+                  transactions={transactions}
+                  onDeleteTransaction={deleteTransaction}
+                  onFlagTransaction={flagTransaction}
+                  categoryNames={categoryNames}
+                  openModal={openModal}
+                />
               }
             />
           </Routes>
@@ -251,6 +267,15 @@ function App() {
       {modal === "new-category" ? (
         <Modal closeModal={closeModal}>
           <NewCategoryModal addCategory={addCategory} closeModal={closeModal} />
+        </Modal>
+      ) : null}
+      {modal === "new-transaction" ? (
+        <Modal closeModal={closeModal}>
+          <NewTransactionModal
+            addTransaction={addTransaction}
+            closeModal={closeModal}
+            categories={categoryNames}
+          />
         </Modal>
       ) : null}
     </>

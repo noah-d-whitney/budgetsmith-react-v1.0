@@ -7,6 +7,11 @@
   &--form {
     @include dimensions(5rem, 5rem);
     @include border($grey-medium, 3px);
+
+    &:checked {
+      background-color: $primary__blue-medium-dark;
+      border-color: $primary__blue-medium-dark;
+    }
   }
 
   &--table {

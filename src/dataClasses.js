@@ -12,15 +12,23 @@ export class Category {
 
 // ANCHOR Transaction{}
 export class Transaction {
-  constructor(category, type, amount, note, receipt) {
+  constructor(
+    category,
+    type,
+    amount,
+    note,
+    receipt,
+    flagged,
+    date = new Date()
+  ) {
     this.type = type;
     this.amount = type === "expense" ? -amount : amount;
     this.category = category;
     this.note = note;
     this.receipt = receipt;
-    this.date = new Date();
+    this.date = new Date(date);
     this.id = crypto.randomUUID();
-    this.flagged = false;
+    this.flagged = flagged;
   }
 }
 
