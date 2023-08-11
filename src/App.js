@@ -21,6 +21,7 @@ import { useLocalStorageState } from "./hooks/useLocalStorageState";
 function App() {
   // ANCHOR state
   const [firstName, setFirstName] = useLocalStorageState("Lexie", "firstName");
+  const [readOnly, setReadOnly] = useState(false);
   const [startingBalance, setStartingBalance] = useLocalStorageState(
     1000,
     "startingBalance"
@@ -42,19 +43,21 @@ function App() {
   );
   const [transactions, setTransactions] = useLocalStorageState(
     [
-      new Transaction("rent", "expense", 750, "July Rent"),
-      new Transaction("car payment", "expense", 500),
-      new Transaction("gas", "expense", 40, "Filled tank"),
-      new Transaction("gas", "expense", 70, "Filled tank"),
-      new Transaction("groceries", "expense", 120, "Walmart Trip"),
-      new Transaction("groceries", "expense", 50, "Stuff for dinner"),
-      new Transaction("entertainment", "expense", 45, "Date night"),
-      new Transaction("paycheck", "income", 700),
-      new Transaction("freelance", "income", 500, "Web design contract"),
+      // new Transaction("rent", "expense", 750, "July Rent"),
+      // new Transaction("car payment", "expense", 500),
+      // new Transaction("gas", "expense", 40, "Filled tank"),
+      // new Transaction("gas", "expense", 70, "Filled tank"),
+      // new Transaction("groceries", "expense", 120, "Walmart Trip"),
+      // new Transaction("groceries", "expense", 50, "Stuff for dinner"),
+      // new Transaction("entertainment", "expense", 45, "Date night"),
+      // new Transaction("paycheck", "income", 700),
+      // new Transaction("freelance", "income", 500, "Web design contract"),
     ],
     "transactions"
   );
-  const [budgetPeriodStart, setBudgetPeriodStart] = useState(new Date());
+  const [budgetPeriodStart, setBudgetPeriodStart] = useState(
+    new Date("07/11/2023")
+  );
 
   // ANCHOR derived state
   const balances = {
@@ -91,6 +94,63 @@ function App() {
   const categoryNames = categories.map((cat) => cat.name);
   const location = useLocation();
   const pathName = location.pathname;
+
+  function newBudgetPeriod() {
+    const oldPeriodData = {
+      startingBalance,
+      categories,
+      transactions,
+      budgetPeriodStart,
+      budgetPeriodEnd: new Date(),
+    };
+    window.localStorage.setItem(
+      `budgetArchive-${budgetPeriodStart.getMonth()}/${budgetPeriodStart.getDay()}/${budgetPeriodStart.getFullYear()}`,
+      JSON.stringify(oldPeriodData)
+    );
+
+    setStartingBalance(balances.currentBalance);
+    setBudgetPeriodStart(new Date());
+    setTransactions([]);
+  }
+
+  function getBudgetPeriod(startDate) {
+    // Sets read-only mode to true
+    setReadOnly(true);
+    // Saves current budget to LS
+    const currentBudgetData = {
+      startingBalance,
+      categories,
+      transactions,
+      budgetPeriodStart,
+    };
+    window.localStorage.setItem(
+      "currentBudgetData",
+      JSON.stringify(currentBudgetData)
+    );
+    // Read requested budget period
+    const budgetPeriodData = JSON.parse(
+      window.localStorage.getItem(`budgetArchive-${startDate}`)
+    );
+    // Set requested budget period
+    setStartingBalance(budgetPeriodData.startingBalance);
+    setCategories(budgetPeriodData.categories);
+    setTransactions(budgetPeriodData.transactions);
+    setBudgetPeriodStart(new Date(budgetPeriodData.budgetPeriodStart));
+  }
+
+  function returnToCurrentBudget() {
+    setReadOnly(false);
+
+    const currentBudgetData = JSON.parse(
+      window.localStorage.getItem("currentBudgetData")
+    );
+    setStartingBalance(currentBudgetData.startingBalance);
+    setCategories(currentBudgetData.categories);
+    setTransactions(currentBudgetData.transactions);
+    setBudgetPeriodStart(new Date(currentBudgetData.budgetPeriodStart));
+
+    window.localStorage.removeItem("currentBudgetData");
+  }
 
   // ANCHOR calcCurrentBalance()
   function calcCurrentBalance() {
@@ -205,7 +265,13 @@ function App() {
   return (
     <>
       <header>
-        <StatusBar />
+        <StatusBar
+          budgetPeriodStart={budgetPeriodStart}
+          newBudgetPeriod={newBudgetPeriod}
+          readOnly={readOnly}
+          getBudgetPeriod={getBudgetPeriod}
+          returnToCurrentBudget={returnToCurrentBudget}
+        />
         <ActionBar firstName={firstName}>
           <ActionBarActions
             actions={[

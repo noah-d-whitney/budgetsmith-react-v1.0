@@ -495,6 +495,18 @@ td {
   width: 3rem;
   fill: #f8f9fa;
 }
+.btn--status {
+  all: unset;
+  color: #fff;
+  background-color: transparent;
+  border-bottom: 2px solid white;
+  transition: all 0.2s ease-in;
+}
+.btn--status:hover, .btn--status:active {
+  cursor: pointer;
+  color: #adb5bd;
+  border-color: #adb5bd;
+}
 .btn--quick-action {
   background-color: #4c6ef5;
   height: 100%;

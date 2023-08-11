@@ -26,6 +26,21 @@
     }
   }
 
+  &--status {
+    all: unset;
+    color: #fff;
+    background-color: transparent;
+    border-bottom: 2px solid white;
+    transition: $transition--default;
+
+    &:hover,
+    &:active {
+      cursor: pointer;
+      color: $grey-medium;
+      border-color: $grey-medium;
+    }
+  }
+
   &--quick-action {
     background-color: $primary__blue-medium;
     height: 100%;
