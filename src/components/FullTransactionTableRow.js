@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { TableCheckbox } from "./TableCheckbox";
 import { TableFlag } from "./TableFlag";
 
@@ -25,9 +24,9 @@ export function FullTransactionTableRow({
         ${Math.abs(data.amount)}
       </div>
       <div className="fullpage-table__cell--body value--date">
-        {`${
-          data.date.getMonth() + 1
-        }/${data.date.getDate()}/${data.date.getFullYear()}`}
+        {`${new Date(data.date).getMonth() + 1}/${new Date(
+          data.date
+        ).getDate()}/${new Date(data.date).getFullYear()}`}
       </div>
       <div className="fullpage-table__cell--body value--type">
         <div

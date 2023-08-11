@@ -3,7 +3,7 @@ import { StatusBar } from "./components/StatusBar";
 import { ActionBar } from "./components/ActionBar/ActionBar";
 import "./css/style.css";
 import { Navbar } from "./components/Navbar";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { HomePage } from "./pages/HomePage";
 import { BudgetPage } from "./pages/BudgetPage";
 import { Category, Transaction, ActionBarAction } from "./dataClasses";
@@ -16,34 +16,45 @@ import { Modal } from "./components/Modal";
 import { NewCategoryModal } from "./components/newCategoryModal";
 import { TransactionsPage } from "./pages/TransactionsPage";
 import { NewTransactionModal } from "./components/NewTransactionModal";
+import { useLocalStorageState } from "./hooks/useLocalStorageState";
 
 function App() {
   // ANCHOR state
-  const [firstName, setFirstName] = useState("Lexie");
-  const [startingBalance, setStartingBalance] = useState(1000);
+  const [firstName, setFirstName] = useLocalStorageState("Lexie", "firstName");
+  const [startingBalance, setStartingBalance] = useLocalStorageState(
+    1000,
+    "startingBalance"
+  );
   const [modal, setModal] = useState(null);
-  const [categories, setCategories] = useState([
-    new Category("rent", "expense", 750, "bill"),
-    new Category("car payment", "expense", 500, "bill"),
-    new Category("gas", "expense", 100, "necessity"),
-    new Category("car insurance", "expense", 175, "bill"),
-    new Category("groceries", "expense", 350, "necessity"),
-    new Category("entertainment", "expense", 100, "discretionary"),
-    new Category("subscriptions", "expense", 80, "discretionary"),
-    new Category("paycheck", "income", 2750),
-    new Category("freelance", "income", 1000),
-  ]);
-  const [transactions, setTransactions] = useState([
-    new Transaction("rent", "expense", 750, "July Rent"),
-    new Transaction("car payment", "expense", 500),
-    new Transaction("gas", "expense", 40, "Filled tank"),
-    new Transaction("gas", "expense", 70, "Filled tank"),
-    new Transaction("groceries", "expense", 120, "Walmart Trip"),
-    new Transaction("groceries", "expense", 50, "Stuff for dinner"),
-    new Transaction("entertainment", "expense", 45, "Date night"),
-    new Transaction("paycheck", "income", 700),
-    new Transaction("freelance", "income", 500, "Web design contract"),
-  ]);
+  const [categories, setCategories] = useLocalStorageState(
+    [
+      new Category("rent", "expense", 750, "bill"),
+      new Category("car payment", "expense", 500, "bill"),
+      new Category("gas", "expense", 100, "necessity"),
+      new Category("car insurance", "expense", 175, "bill"),
+      new Category("groceries", "expense", 350, "necessity"),
+      new Category("entertainment", "expense", 100, "discretionary"),
+      new Category("subscriptions", "expense", 80, "discretionary"),
+      new Category("paycheck", "income", 2750),
+      new Category("freelance", "income", 1000),
+    ],
+    "categories"
+  );
+  const [transactions, setTransactions] = useLocalStorageState(
+    [
+      new Transaction("rent", "expense", 750, "July Rent"),
+      new Transaction("car payment", "expense", 500),
+      new Transaction("gas", "expense", 40, "Filled tank"),
+      new Transaction("gas", "expense", 70, "Filled tank"),
+      new Transaction("groceries", "expense", 120, "Walmart Trip"),
+      new Transaction("groceries", "expense", 50, "Stuff for dinner"),
+      new Transaction("entertainment", "expense", 45, "Date night"),
+      new Transaction("paycheck", "income", 700),
+      new Transaction("freelance", "income", 500, "Web design contract"),
+    ],
+    "transactions"
+  );
+  const [budgetPeriodStart, setBudgetPeriodStart] = useState(new Date());
 
   // ANCHOR derived state
   const balances = {
@@ -76,11 +87,10 @@ function App() {
       return (this.saved / this.startingBalance) * 100;
     },
   };
-  console.log("Render");
-  console.log("Planned Expenses", balances.plannedExpenses);
-  console.log(categories);
   const budgetTableData = getBudgetTableData();
   const categoryNames = categories.map((cat) => cat.name);
+  const location = useLocation();
+  const pathName = location.pathname;
 
   // ANCHOR calcCurrentBalance()
   function calcCurrentBalance() {
@@ -140,15 +150,12 @@ function App() {
 
   function deleteCategory(id) {
     const name = categories.find((cat) => cat.id === id);
-    console.log(name);
     setCategories((cats) => cats.filter((cat) => cat.id !== id));
     setTransactions((trans) => trans.filter((tran) => tran.category !== name));
-    // TODO show modal
   }
 
   function deleteTransaction(ids) {
     setTransactions((trans) => trans.filter((tran) => !ids.includes(tran.id)));
-    // TODO show modal
   }
 
   function flagTransaction(id) {
@@ -158,8 +165,6 @@ function App() {
       transaction.flagged = !transaction.flagged;
 
       const oldTransactions = trans.filter((tran) => tran.id !== id);
-      // const newTransactions = oldTransactions.splice(index, 0, transaction);
-      // console.log("TEST", newTransactions);
       const newTransactions = [
         ...oldTransactions.slice(0, index),
         transaction,
@@ -216,7 +221,7 @@ function App() {
       </header>
       <main>
         <div className="container">
-          <Navbar />
+          <Navbar pathName={pathName} />
 
           <Routes>
             <Route

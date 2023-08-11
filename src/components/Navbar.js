@@ -1,10 +1,10 @@
 import { NavbarTab } from "./NavbarTab";
 
-export function Navbar() {
+export function Navbar({ pathName }) {
   return (
     <nav className="nav-bar">
       <div className="nav-bar__container">
-        <NavbarTab id="home-tab" href="/">
+        <NavbarTab id="home-tab" href="/" pathName={pathName}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="nav-bar__icon"
@@ -13,7 +13,11 @@ export function Navbar() {
             <path d="M224,115.55V208a16,16,0,0,1-16,16H168a16,16,0,0,1-16-16V168a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v40a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V115.55a16,16,0,0,1,5.17-11.78l80-75.48.11-.11a16,16,0,0,1,21.53,0,1.14,1.14,0,0,0,.11.11l80,75.48A16,16,0,0,1,224,115.55Z"></path>
           </svg>
         </NavbarTab>
-        <NavbarTab id="transactions-tab" href="/transactions">
+        <NavbarTab
+          id="transactions-tab"
+          href="/transactions"
+          pathName={pathName}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="nav-bar__icon"
@@ -22,7 +26,7 @@ export function Navbar() {
             <path d="M216,40H40A16,16,0,0,0,24,56V208a8,8,0,0,0,11.58,7.15L64,200.94l28.42,14.21a8,8,0,0,0,7.16,0L128,200.94l28.42,14.21a8,8,0,0,0,7.16,0L192,200.94l28.42,14.21A8,8,0,0,0,232,208V56A16,16,0,0,0,216,40ZM176,144H80a8,8,0,0,1,0-16h96a8,8,0,0,1,0,16Zm0-32H80a8,8,0,0,1,0-16h96a8,8,0,0,1,0,16Z"></path>
           </svg>
         </NavbarTab>
-        <NavbarTab id="budget-tab" href="budget">
+        <NavbarTab id="budget-tab" href="/budget" pathName={pathName}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="nav-bar__icon"
@@ -33,7 +37,7 @@ export function Navbar() {
         </NavbarTab>
       </div>
       <div className="nav-bar__container">
-        <NavbarTab id="settings-tab" href="#">
+        <NavbarTab id="settings-tab" href="#" pathName={pathName}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="nav-bar__icon"
