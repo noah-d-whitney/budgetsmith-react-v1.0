@@ -43,20 +43,25 @@ function App() {
   );
   const [transactions, setTransactions] = useLocalStorageState(
     [
-      // new Transaction("rent", "expense", 750, "July Rent"),
-      // new Transaction("car payment", "expense", 500),
-      // new Transaction("gas", "expense", 40, "Filled tank"),
-      // new Transaction("gas", "expense", 70, "Filled tank"),
-      // new Transaction("groceries", "expense", 120, "Walmart Trip"),
-      // new Transaction("groceries", "expense", 50, "Stuff for dinner"),
-      // new Transaction("entertainment", "expense", 45, "Date night"),
-      // new Transaction("paycheck", "income", 700),
-      // new Transaction("freelance", "income", 500, "Web design contract"),
+      new Transaction("rent", "expense", 750, "July Rent"),
+      new Transaction("car payment", "expense", 500),
+      new Transaction("gas", "expense", 40, "Filled tank"),
+      new Transaction("gas", "expense", 70, "Filled tank"),
+      new Transaction("groceries", "expense", 120, "Walmart Trip"),
+      new Transaction("groceries", "expense", 50, "Stuff for dinner"),
+      new Transaction("entertainment", "expense", 45, "Date night"),
+      new Transaction("paycheck", "income", 700),
+      new Transaction("freelance", "income", 500, "Web design contract"),
     ],
     "transactions"
   );
-  const [budgetPeriodStart, setBudgetPeriodStart] = useState(
-    new Date("07/11/2023")
+  const [budgetPeriodStartState, setBudgetPeriodStartState] =
+    useLocalStorageState(new Date("07/11/2023"), "budgetPeriodStart");
+  const budgetPeriodStart = new Date(budgetPeriodStartState);
+
+  const [budgetArchive, setBudgetArchive] = useLocalStorageState(
+    [],
+    "budgetArchive"
   );
 
   // ANCHOR derived state
@@ -103,13 +108,16 @@ function App() {
       budgetPeriodStart,
       budgetPeriodEnd: new Date(),
     };
-    window.localStorage.setItem(
-      `budgetArchive-${budgetPeriodStart.getMonth()}/${budgetPeriodStart.getDay()}/${budgetPeriodStart.getFullYear()}`,
-      JSON.stringify(oldPeriodData)
-    );
+    const budgetArchiveDate = `${
+      budgetPeriodStart.getMonth() + 1
+    }/${budgetPeriodStart.getDate()}/${budgetPeriodStart.getFullYear()}`;
+
+    setBudgetArchive((archive) => {
+      return { [budgetArchiveDate]: oldPeriodData, ...archive };
+    });
 
     setStartingBalance(balances.currentBalance);
-    setBudgetPeriodStart(new Date());
+    setBudgetPeriodStartState(new Date());
     setTransactions([]);
   }
 
@@ -129,13 +137,13 @@ function App() {
     );
     // Read requested budget period
     const budgetPeriodData = JSON.parse(
-      window.localStorage.getItem(`budgetArchive-${startDate}`)
-    );
+      window.localStorage.getItem("budgetArchive")
+    )[startDate];
     // Set requested budget period
     setStartingBalance(budgetPeriodData.startingBalance);
     setCategories(budgetPeriodData.categories);
     setTransactions(budgetPeriodData.transactions);
-    setBudgetPeriodStart(new Date(budgetPeriodData.budgetPeriodStart));
+    setBudgetPeriodStartState(new Date(budgetPeriodData.budgetPeriodStart));
   }
 
   function returnToCurrentBudget() {
@@ -147,7 +155,7 @@ function App() {
     setStartingBalance(currentBudgetData.startingBalance);
     setCategories(currentBudgetData.categories);
     setTransactions(currentBudgetData.transactions);
-    setBudgetPeriodStart(new Date(currentBudgetData.budgetPeriodStart));
+    setBudgetPeriodStartState(new Date(currentBudgetData.budgetPeriodStart));
 
     window.localStorage.removeItem("currentBudgetData");
   }

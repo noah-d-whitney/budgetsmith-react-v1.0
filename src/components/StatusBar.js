@@ -32,7 +32,7 @@ export function StatusBar({
               NEW PERIOD
             </button>
             <button
-              onClick={() => getBudgetPeriod("6/2/2023")}
+              onClick={() => getBudgetPeriod("7/11/2023")}
               className="btn--status"
             >
               TO OLD PERIOD
