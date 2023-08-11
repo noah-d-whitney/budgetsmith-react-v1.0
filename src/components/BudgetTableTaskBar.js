@@ -7,9 +7,14 @@ export function BudgetTableTaskBar({
   tagFilter,
   onTagFilter,
   openModal,
+  selectedIDs,
+  onBulkDelete,
 }) {
   return (
     <div className="taskbar margin-small">
+      {selectedIDs.length !== 0 ? (
+        <TableTaskBarButton text="Bulk Delete" callback={onBulkDelete} />
+      ) : null}
       <div className="taskbar-itemcontainer">
         <label htmlFor="typeFilterSelect" className="label label--action">
           Type

@@ -56,13 +56,17 @@ export function SummaryTable({ balances }) {
           </div>
           <div
             id="summary-table__expenses-diff"
-            className="table__cell table__cell--body"
+            className={`table__cell table__cell--body ${
+              expensesDifference < 0 ? "red" : "green"
+            }`}
           >
             ${expensesDifference}
           </div>
           <div
             id="summary-table__income-diff"
-            className="table__cell table__cell--body"
+            className={`table__cell table__cell--body ${
+              incomeDifference < 0 ? "red" : "green"
+            }`}
           >
             ${incomeDifference}
           </div>

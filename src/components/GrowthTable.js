@@ -17,7 +17,13 @@ export function GrowthTable({ balances }) {
           <div className="table__cell table__cell--heading heading-vertical">
             Increase
           </div>
-          <div className="table__cell table__cell--body">{increase}%</div>
+          <div
+            className={`table__cell table__cell--body ${
+              increase > 0 ? "green" : "red"
+            }`}
+          >
+            {increase}%
+          </div>
         </div>
       </div>
     </div>

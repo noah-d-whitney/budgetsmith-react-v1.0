@@ -6,8 +6,9 @@ export function FullBudgetTable({
   typeFilter,
   onDeleteCategory,
   tagFilter,
+  selectedIDs,
+  setSelectedIDs,
 }) {
-  const [selectedIDs, setSelectedIDs] = useState([]);
   const [sorted, setSorted] = useState(null);
   const [sortOrder, setSortOrder] = useState(null);
 

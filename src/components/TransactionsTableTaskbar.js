@@ -52,7 +52,12 @@ export function TransactionsTableTaskbar({
           Category
         </label>
         <Dropdown
-          options={["All", ...categoryNames]}
+          options={[
+            "All",
+            ...categoryNames.map(
+              (name) => name[0].toUpperCase() + name.slice(1)
+            ),
+          ]}
           value={categoryFilter}
           onChange={setCategoryFilter}
           name="categoryFilterSelect"

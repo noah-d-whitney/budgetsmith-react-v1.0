@@ -62,6 +62,7 @@ export function NewTransactionModal({
               placeholder="$300"
               type="number"
               ref={amountInput}
+              required={true}
             />
           </div>
 
@@ -71,6 +72,7 @@ export function NewTransactionModal({
               placeholder="01/01/2023"
               type="date"
               ref={dateInput}
+              required={true}
             />
           </div>
 
@@ -81,9 +83,10 @@ export function NewTransactionModal({
           <div id="new-transaction--note" className="form-container">
             <FormInput
               label="Note"
-              placeholder="Max 75 Characters"
+              placeholder="Max 20 Characters"
               type="text"
               ref={noteInput}
+              maxLength="20"
             />
           </div>
         </div>

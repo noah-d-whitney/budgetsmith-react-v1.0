@@ -138,7 +138,9 @@ function App() {
     return budgetTableData;
   }
 
-  function deleteCategory(id, name) {
+  function deleteCategory(id) {
+    const name = categories.find((cat) => cat.id === id);
+    console.log(name);
     setCategories((cats) => cats.filter((cat) => cat.id !== id));
     setTransactions((trans) => trans.filter((tran) => tran.category !== name));
     // TODO show modal

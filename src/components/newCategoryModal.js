@@ -7,12 +7,12 @@ export function NewCategoryModal({ addCategory, closeModal }) {
   const categoryBudgetInput = useRef();
   const categoryNameInput = useRef();
   const categoryTagInput = useRef();
-  const [selectedOption, setSelectedOption] = useState("income");
+  const [selectedOption, setSelectedOption] = useState("expense");
 
   function handleSubmit(e) {
     e.preventDefault();
     addCategory(
-      categoryNameInput.current.value,
+      categoryNameInput.current.value.toLowerCase(),
       selectedOption,
       Number(categoryBudgetInput.current.value),
       categoryTagInput.current.value
@@ -37,12 +37,15 @@ export function NewCategoryModal({ addCategory, closeModal }) {
             label="Budget"
             placeholder="$300"
             type="number"
+            required={true}
             ref={categoryBudgetInput}
           />
           <FormInput
             label="Name"
             placeholder="Groceries"
             type="text"
+            required={true}
+            maxLength="20"
             ref={categoryNameInput}
           />
 
