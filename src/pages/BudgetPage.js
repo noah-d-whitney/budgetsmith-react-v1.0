@@ -2,7 +2,12 @@ import { FullBudgetTable } from "../components/FullBudgetTable";
 import { BudgetTableTaskBar } from "../components/BudgetTableTaskBar";
 import { useState } from "react";
 
-export function BudgetPage({ tableData, onDeleteCategory, openModal }) {
+export function BudgetPage({
+  tableData,
+  onDeleteCategory,
+  openModal,
+  readOnly,
+}) {
   const [typeFilter, setTypeFilter] = useState("All");
   const [tagFilter, setTagFilter] = useState("All");
   const [selectedIDs, setSelectedIDs] = useState([]);
@@ -24,6 +29,7 @@ export function BudgetPage({ tableData, onDeleteCategory, openModal }) {
         onTagFilter={setTagFilter}
         onBulkDelete={handleBulkDelete}
         selectedIDs={selectedIDs}
+        readOnly={readOnly}
       />
       <FullBudgetTable
         tableData={tableData}
@@ -32,6 +38,7 @@ export function BudgetPage({ tableData, onDeleteCategory, openModal }) {
         onDeleteCategory={onDeleteCategory}
         selectedIDs={selectedIDs}
         setSelectedIDs={setSelectedIDs}
+        readOnly={readOnly}
       />
     </div>
   );

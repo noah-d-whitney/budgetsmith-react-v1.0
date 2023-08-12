@@ -9,11 +9,16 @@ export function BudgetTableTaskBar({
   openModal,
   selectedIDs,
   onBulkDelete,
+  readOnly,
 }) {
   return (
     <div className="taskbar margin-small">
       {selectedIDs.length !== 0 ? (
-        <TableTaskBarButton text="Bulk Delete" callback={onBulkDelete} />
+        <TableTaskBarButton
+          text="Bulk Delete"
+          callback={onBulkDelete}
+          disabled={readOnly}
+        />
       ) : null}
       <div className="taskbar-itemcontainer">
         <label htmlFor="typeFilterSelect" className="label label--action">
@@ -44,6 +49,7 @@ export function BudgetTableTaskBar({
       <TableTaskBarButton
         text="New Category"
         callback={() => openModal("new-category")}
+        disabled={readOnly}
       />
     </div>
   );

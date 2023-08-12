@@ -6,6 +6,7 @@ export function TransactionsTableTaskbar({
   categoryNames,
   onBulkDelete,
   openModal,
+  readOnly,
 }) {
   const {
     typeFilter,
@@ -19,7 +20,11 @@ export function TransactionsTableTaskbar({
   return (
     <div className="taskbar margin-small">
       {selectedIDs.length !== 0 ? (
-        <TableTaskBarButton text="Bulk Delete" callback={onBulkDelete} />
+        <TableTaskBarButton
+          text="Bulk Delete"
+          callback={onBulkDelete}
+          disabled={readOnly}
+        />
       ) : null}
       <div className="taskbar-itemcontainer">
         <label htmlFor="typeFilterSelect" className="label label--action">
@@ -68,6 +73,7 @@ export function TransactionsTableTaskbar({
       <TableTaskBarButton
         text="New Transaction"
         callback={() => openModal("new-transaction")}
+        disabled={readOnly}
       />
     </div>
   );

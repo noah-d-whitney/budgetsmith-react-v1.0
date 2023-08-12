@@ -8,6 +8,7 @@ export function FullBudgetTable({
   tagFilter,
   selectedIDs,
   setSelectedIDs,
+  readOnly,
 }) {
   const [sorted, setSorted] = useState(null);
   const [sortOrder, setSortOrder] = useState(null);
@@ -105,6 +106,7 @@ export function FullBudgetTable({
                 selectedIDs={selectedIDs}
                 key={cat.id}
                 onDeleteCategory={onDeleteCategory}
+                readOnly={readOnly}
               />
             ))
           : null}
@@ -116,6 +118,7 @@ export function FullBudgetTable({
                 selectedIDs={selectedIDs}
                 key={cat.id}
                 onDeleteCategory={onDeleteCategory}
+                readOnly={readOnly}
               />
             ))
           : null}
@@ -128,6 +131,7 @@ export function FullBudgetTable({
                 selectedIDs={selectedIDs}
                 key={cat.id}
                 onDeleteCategory={onDeleteCategory}
+                readOnly={readOnly}
               />
             ))
           : null}

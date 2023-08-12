@@ -17,11 +17,13 @@ import { NewCategoryModal } from "./components/newCategoryModal";
 import { TransactionsPage } from "./pages/TransactionsPage";
 import { NewTransactionModal } from "./components/NewTransactionModal";
 import { useLocalStorageState } from "./hooks/useLocalStorageState";
+import { calcDateDiff } from "./helpers";
+import { ArchivePage } from "./pages/ArchivePage";
 
 function App() {
   // ANCHOR state
   const [firstName, setFirstName] = useLocalStorageState("Lexie", "firstName");
-  const [readOnly, setReadOnly] = useState(false);
+  const [readOnly, setReadOnly] = useLocalStorageState(false, "readOnly");
   const [startingBalance, setStartingBalance] = useLocalStorageState(
     1000,
     "startingBalance"
@@ -56,9 +58,18 @@ function App() {
     "transactions"
   );
   const [budgetPeriodStartState, setBudgetPeriodStartState] =
-    useLocalStorageState(new Date("07/11/2023"), "budgetPeriodStart");
+    useLocalStorageState(new Date("07/01/2023"), "budgetPeriodStart");
+  const [budgetPeriodEndState, setBudgetPeriodEndState] = useLocalStorageState(
+    null,
+    "budgetPeriodEnd"
+  );
   const budgetPeriodStart = new Date(budgetPeriodStartState);
-
+  const budgetPeriodEnd = budgetPeriodEndState
+    ? new Date(budgetPeriodEndState)
+    : null;
+  const budgetPeriodDuration = budgetPeriodEnd
+    ? calcDateDiff(budgetPeriodStart, budgetPeriodEnd)
+    : calcDateDiff(budgetPeriodStart, new Date());
   const [budgetArchive, setBudgetArchive] = useLocalStorageState(
     [],
     "budgetArchive"
@@ -103,17 +114,15 @@ function App() {
   function newBudgetPeriod() {
     const oldPeriodData = {
       startingBalance,
+      endingBalance: balances.currentBalance,
       categories,
       transactions,
       budgetPeriodStart,
       budgetPeriodEnd: new Date(),
+      id: crypto.randomUUID(),
     };
-    const budgetArchiveDate = `${
-      budgetPeriodStart.getMonth() + 1
-    }/${budgetPeriodStart.getDate()}/${budgetPeriodStart.getFullYear()}`;
-
     setBudgetArchive((archive) => {
-      return { [budgetArchiveDate]: oldPeriodData, ...archive };
+      return [oldPeriodData, ...archive];
     });
 
     setStartingBalance(balances.currentBalance);
@@ -121,7 +130,7 @@ function App() {
     setTransactions([]);
   }
 
-  function getBudgetPeriod(startDate) {
+  function getBudgetPeriod(id) {
     // Sets read-only mode to true
     setReadOnly(true);
     // Saves current budget to LS
@@ -136,14 +145,13 @@ function App() {
       JSON.stringify(currentBudgetData)
     );
     // Read requested budget period
-    const budgetPeriodData = JSON.parse(
-      window.localStorage.getItem("budgetArchive")
-    )[startDate];
+    const budgetPeriodData = budgetArchive.find((item) => item.id === id);
     // Set requested budget period
     setStartingBalance(budgetPeriodData.startingBalance);
     setCategories(budgetPeriodData.categories);
     setTransactions(budgetPeriodData.transactions);
     setBudgetPeriodStartState(new Date(budgetPeriodData.budgetPeriodStart));
+    setBudgetPeriodEndState(budgetPeriodData.budgetPeriodEnd);
   }
 
   function returnToCurrentBudget() {
@@ -156,6 +164,7 @@ function App() {
     setCategories(currentBudgetData.categories);
     setTransactions(currentBudgetData.transactions);
     setBudgetPeriodStartState(new Date(currentBudgetData.budgetPeriodStart));
+    setBudgetPeriodEndState(null);
 
     window.localStorage.removeItem("currentBudgetData");
   }
@@ -257,7 +266,15 @@ function App() {
     date
   ) {
     setTransactions((cats) => [
-      new Transaction(category, type, amount, note, receipt, flagged, date),
+      new Transaction(
+        category,
+        type,
+        Number(amount),
+        note,
+        receipt,
+        flagged,
+        date
+      ),
       ...cats,
     ]);
   }
@@ -275,13 +292,14 @@ function App() {
       <header>
         <StatusBar
           budgetPeriodStart={budgetPeriodStart}
+          budgetPeriodEnd={budgetPeriodEnd}
           newBudgetPeriod={newBudgetPeriod}
           readOnly={readOnly}
-          getBudgetPeriod={getBudgetPeriod}
           returnToCurrentBudget={returnToCurrentBudget}
         />
         <ActionBar firstName={firstName}>
           <ActionBarActions
+            readOnly={readOnly}
             actions={[
               new ActionBarAction("New Transaction", () =>
                 openModal("new-transaction")
@@ -290,6 +308,9 @@ function App() {
                 openModal("new-category")
               ),
             ]}
+            returnToCurrent={returnToCurrentBudget}
+            budgetPeriodStart={budgetPeriodStart}
+            budgetPeriodEnd={budgetPeriodEnd}
           />
         </ActionBar>
       </header>
@@ -322,6 +343,7 @@ function App() {
                   tableData={budgetTableData}
                   onDeleteCategory={deleteCategory}
                   openModal={openModal}
+                  readOnly={readOnly}
                 />
               }
             />
@@ -335,6 +357,18 @@ function App() {
                   onFlagTransaction={flagTransaction}
                   categoryNames={categoryNames}
                   openModal={openModal}
+                  readOnly={readOnly}
+                />
+              }
+            />
+            <Route
+              exact
+              path="/archive"
+              element={
+                <ArchivePage
+                  budgetArchive={budgetArchive}
+                  onBudgetPeriod={getBudgetPeriod}
+                  readOnly={readOnly}
                 />
               }
             />

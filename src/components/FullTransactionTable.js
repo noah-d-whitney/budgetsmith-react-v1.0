@@ -11,6 +11,7 @@ export function FullTransactionTable({
   typeFilter,
   categoryFilter,
   flagFilter,
+  readOnly,
 }) {
   const [sort, setSort] = useState(null);
   const [sortOrder, setSortOrder] = useState(null);
@@ -107,6 +108,7 @@ export function FullTransactionTable({
             selectedIDs={selectedIDs}
             onDeleteTransaction={onDeleteTransaction}
             onFlagTransaction={onFlagTransaction}
+            readOnly={readOnly}
           />
         ))}
       </div>

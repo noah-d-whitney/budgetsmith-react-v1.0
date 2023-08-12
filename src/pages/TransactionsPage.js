@@ -8,6 +8,7 @@ export function TransactionsPage({
   onDeleteTransaction,
   categoryNames,
   openModal,
+  readOnly,
 }) {
   const [typeFilter, setTypeFilter] = useState("All");
   const [categoryFilter, setCategoryFilter] = useState("All");
@@ -43,13 +44,14 @@ export function TransactionsPage({
   }
 
   return (
-    <div className="container--view page__budget">
+    <div className="container--view page__transactions">
       <h1 className="page-title">Transactions</h1>
       <TransactionsTableTaskbar
         taskbarState={taskbarState}
         categoryNames={categoryNames}
         onBulkDelete={handleBulkDelete}
         openModal={openModal}
+        readOnly={readOnly}
       />
       <FullTransactionTable
         tableData={transactions}
@@ -61,6 +63,7 @@ export function TransactionsPage({
         typeFilter={typeFilter}
         categoryFilter={categoryFilter}
         flagFilter={flagFilter}
+        readOnly={readOnly}
       />
     </div>
   );

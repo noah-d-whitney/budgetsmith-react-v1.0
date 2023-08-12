@@ -13,6 +13,11 @@
     background-color: $primary__blue-dark;
   }
 
+  &--archive {
+    background-color: $primary__blue-medium;
+    padding: 1.5rem 3rem;
+  }
+
   &--field {
     border-radius: 0;
     background-color: $primary__blue-medium-dark;
@@ -23,6 +28,16 @@
     &__icon {
       width: 3rem;
       fill: $grey-very-light;
+    }
+  }
+
+  &--disabled {
+    background-color: $grey-medium !important;
+    color: $grey-very-light !important;
+
+    &:hover,
+    &:active {
+      cursor: auto;
     }
   }
 

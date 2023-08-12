@@ -289,6 +289,21 @@ td {
   line-height: 1.5;
 }
 
+.archive__item-text {
+  font-size: 1.8rem;
+  text-transform: uppercase;
+}
+
+.subtitle {
+  font-size: 1.6rem;
+  text-align: center;
+  margin: 1.5rem 0;
+}
+
+.bold {
+  font-weight: 800;
+}
+
 .container {
   display: flex;
 }
@@ -484,6 +499,10 @@ td {
   cursor: pointer;
   background-color: #364fc7;
 }
+.btn--archive {
+  background-color: #4c6ef5;
+  padding: 1.5rem 3rem;
+}
 .btn--field {
   border-radius: 0;
   background-color: #4263eb;
@@ -494,6 +513,13 @@ td {
 .btn--field__icon {
   width: 3rem;
   fill: #f8f9fa;
+}
+.btn--disabled {
+  background-color: #adb5bd !important;
+  color: #f8f9fa !important;
+}
+.btn--disabled:hover, .btn--disabled:active {
+  cursor: auto;
 }
 .btn--status {
   all: unset;
@@ -1135,6 +1161,23 @@ td {
 }
 .toggle-switch:hover .toggle-switch__btn, .toggle-switch:active .toggle-switch__btn {
   transform: translateY(-50%) scale(0.8);
+}
+
+.archive__item-container {
+  width: 100%;
+  overflow-y: scroll;
+  height: 90%;
+  border-bottom: 5px solid #4c6ef5;
+  border-top: 5px solid #4c6ef5;
+}
+.archive__item {
+  border: 3px solid #adb5bd;
+  padding: 1.5rem 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 1rem 0;
+  background-color: white;
 }
 
 /*# sourceMappingURL=style.css.map */
