@@ -7,13 +7,20 @@ export function ArchivePage({ budgetArchive, onBudgetPeriod, readOnly }) {
       <h1>Archive</h1>
       <p className="subtitle">View previous budget periods in read-only mode</p>
       <div className="archive__item-container">
-        {budgetArchive?.map((item) => (
-          <ArchiveItem
-            data={item}
-            onBudgetPeriod={onBudgetPeriod}
-            readOnly={readOnly}
-          />
-        ))}
+        {budgetArchive.length > 0 ? (
+          budgetArchive.map((item) => (
+            <ArchiveItem
+              data={item}
+              onBudgetPeriod={onBudgetPeriod}
+              readOnly={readOnly}
+            />
+          ))
+        ) : (
+          <p className="archive__empty-text">
+            No past budget periods to display. When you start a new period, your
+            old ones will be available here to view in read-only mode
+          </p>
+        )}
       </div>
     </div>
   );

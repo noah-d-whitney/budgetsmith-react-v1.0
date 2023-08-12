@@ -3,7 +3,7 @@ import { StatusBar } from "./components/StatusBar";
 import { ActionBar } from "./components/ActionBar/ActionBar";
 import "./css/style.css";
 import { Navbar } from "./components/Navbar";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { HomePage } from "./pages/HomePage";
 import { BudgetPage } from "./pages/BudgetPage";
 import { Category, Transaction, ActionBarAction } from "./dataClasses";
@@ -13,12 +13,13 @@ import { GrowthTable } from "./components/GrowthTable";
 import { SpendingSummaryTable } from "./components/SpendingSummaryTable";
 import { SummaryTable } from "./components/SummaryTable";
 import { Modal } from "./components/Modal";
-import { NewCategoryModal } from "./components/newCategoryModal";
+import { NewCategoryModal } from "./components/NewCategoryModal";
 import { TransactionsPage } from "./pages/TransactionsPage";
 import { NewTransactionModal } from "./components/NewTransactionModal";
 import { useLocalStorageState } from "./hooks/useLocalStorageState";
 import { calcDateDiff } from "./helpers";
 import { ArchivePage } from "./pages/ArchivePage";
+import { MessageModal } from "./components/MessageModal";
 
 function App() {
   // ANCHOR state
@@ -74,6 +75,7 @@ function App() {
     [],
     "budgetArchive"
   );
+  const navigateTo = useNavigate();
 
   // ANCHOR derived state
   const balances = {
@@ -128,6 +130,13 @@ function App() {
     setStartingBalance(balances.currentBalance);
     setBudgetPeriodStartState(new Date());
     setTransactions([]);
+
+    const successMessage = () => {
+      openModal("new-period-success");
+      setTimeout(closeModal, 2000);
+    };
+
+    successMessage();
   }
 
   function getBudgetPeriod(id) {
@@ -152,6 +161,14 @@ function App() {
     setTransactions(budgetPeriodData.transactions);
     setBudgetPeriodStartState(new Date(budgetPeriodData.budgetPeriodStart));
     setBudgetPeriodEndState(budgetPeriodData.budgetPeriodEnd);
+
+    switchToReadOnly();
+  }
+
+  function switchToReadOnly() {
+    navigateTo("/");
+    openModal("switch-read-only");
+    setTimeout(closeModal, 3000);
   }
 
   function returnToCurrentBudget() {
@@ -167,6 +184,15 @@ function App() {
     setBudgetPeriodEndState(null);
 
     window.localStorage.removeItem("currentBudgetData");
+  }
+
+  function handleNewPeriodRequest() {
+    if (budgetPeriodDuration.totalDays >= 7) {
+      openModal("new-period");
+    }
+    if (budgetPeriodDuration.totalDays < 7) {
+      openModal("new-period-not-allowed");
+    }
   }
 
   // ANCHOR calcCurrentBalance()
@@ -293,7 +319,7 @@ function App() {
         <StatusBar
           budgetPeriodStart={budgetPeriodStart}
           budgetPeriodEnd={budgetPeriodEnd}
-          newBudgetPeriod={newBudgetPeriod}
+          newBudgetPeriod={handleNewPeriodRequest}
           readOnly={readOnly}
           returnToCurrentBudget={returnToCurrentBudget}
         />
@@ -386,6 +412,48 @@ function App() {
             addTransaction={addTransaction}
             closeModal={closeModal}
             categories={categoryNames}
+          />
+        </Modal>
+      ) : null}
+      {modal === "new-period" ? (
+        <Modal closeModal={closeModal}>
+          <MessageModal
+            message="You are about to start a new period. Once you begin a new budget period, all transactions and categories from the period will not be editable. All transactions will be cleared from your current period. You can access old periods in read-only mode from the archive tab."
+            heading="Are you sure?"
+            closeModal={closeModal}
+            continueButton={true}
+            callback={newBudgetPeriod}
+            buttonText="Proceed"
+          />
+        </Modal>
+      ) : null}
+      {modal === "new-period-success" ? (
+        <Modal closeModal={closeModal}>
+          <MessageModal
+            message="You have successfully started a new budget period. Transactions cleared and starting balance updated"
+            heading="Success!"
+            closeModal={closeModal}
+            continueButton={false}
+          />
+        </Modal>
+      ) : null}
+      {modal === "new-period-not-allowed" ? (
+        <Modal closeModal={closeModal}>
+          <MessageModal
+            message="Please try again when your current budget period has been active for at least 7 days"
+            heading="Cannot Start New Period"
+            closeModal={closeModal}
+            continueButton={false}
+          />
+        </Modal>
+      ) : null}
+      {modal === "switch-read-only" ? (
+        <Modal closeModal={closeModal}>
+          <MessageModal
+            message="You are now in read-only mode. You will be unable to edit data. To go back, click 'Back to Current' in header."
+            heading="Read-Only Mode"
+            closeModal={closeModal}
+            continueButton={false}
           />
         </Modal>
       ) : null}
