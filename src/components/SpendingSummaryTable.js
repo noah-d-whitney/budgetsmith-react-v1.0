@@ -16,7 +16,7 @@ export function SpendingSummaryTable({ budgetTableData }) {
           </svg>
         </Link>
       </h1>
-      <div className="table table--budget-sum table--large-4-cols">
+      <div className="table table--summary table--large-4-cols">
         <div className="table__row table__row--header">
           <div className="table__cell table__cell--heading"></div>
           <div className="table__cell table__cell--heading">Budget</div>

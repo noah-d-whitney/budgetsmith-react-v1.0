@@ -1,4 +1,5 @@
 import { ArchiveItem } from "../components/ArchiveItem";
+import uniqid from "uniqid";
 
 export function ArchivePage({ budgetArchive, onBudgetPeriod, readOnly }) {
   console.log(budgetArchive);
@@ -11,6 +12,7 @@ export function ArchivePage({ budgetArchive, onBudgetPeriod, readOnly }) {
           budgetArchive.map((item) => (
             <ArchiveItem
               data={item}
+              key={uniqid()}
               onBudgetPeriod={onBudgetPeriod}
               readOnly={readOnly}
             />

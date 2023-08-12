@@ -723,7 +723,6 @@ td {
 .table__body {
   background-color: #bac8ff;
   height: 100%;
-  overflow-y: scroll;
 }
 .table__cell {
   display: flex;
@@ -755,6 +754,9 @@ td {
 .table--summary .table__cell--body:not(:last-child) {
   border-right: 1px solid #adb5bd;
 }
+.table--summary .table__body {
+  overflow-y: scroll;
+}
 .table--balance .table__body {
   background-color: #4c6ef5;
   padding: 0 20%;
@@ -774,7 +776,6 @@ td {
 .table--growth .table__row--body {
   grid-template-columns: 1fr 1fr;
   height: 50%;
-  overflow-y: scroll;
 }
 .table--growth .table__cell--heading.heading-vertical {
   background-color: transparent;
