@@ -1,10 +1,8 @@
 import { forwardRef } from "react";
+import uniqid from "uniqid";
 
 export const Dropdown = forwardRef(
-  (
-    { name, options, classes, value, onChange = null, disabled },
-    ref = null
-  ) => {
+  ({ name, options, classes, value, onChange = null, disabled }, ref) => {
     function handleChange(e) {
       if (!onChange) return;
       onChange(e.target.value);
@@ -20,7 +18,7 @@ export const Dropdown = forwardRef(
         disabled={disabled}
       >
         {options.map((option) => (
-          <option key={crypto.randomUUID()} value={option}>
+          <option key={uniqid()} value={option}>
             {option}
           </option>
         ))}

@@ -1,3 +1,5 @@
+import uniqid from "uniqid";
+
 // ANCHOR Category{}
 export class Category {
   constructor(name, type, budget, tag) {
@@ -6,7 +8,7 @@ export class Category {
     this.budget = budget;
     this.tag = tag;
     this.dataType = "category";
-    this.id = crypto.randomUUID();
+    this.id = uniqid();
   }
 }
 
@@ -27,7 +29,7 @@ export class Transaction {
     this.note = note;
     this.receipt = receipt;
     this.date = new Date(date);
-    this.id = crypto.randomUUID();
+    this.id = uniqid();
     this.flagged = flagged;
   }
 }

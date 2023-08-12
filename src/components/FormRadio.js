@@ -1,3 +1,5 @@
+import uniqid from "uniqid";
+
 export const FormRadio = ({
   options,
   name,
@@ -9,7 +11,7 @@ export const FormRadio = ({
     <div id="new-category--type" className="radio">
       <label className="label label--form">{label}</label>
       {options.map((option) => (
-        <div key={crypto.randomUUID()} className="radio-option">
+        <div key={uniqid()} className="radio-option">
           <input
             name={name}
             type="radio"

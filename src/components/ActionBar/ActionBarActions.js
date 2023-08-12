@@ -1,6 +1,7 @@
 import { ActionBarAction } from "../../dataClasses";
 import { formatDate } from "../../helpers";
 import { ActionBarButton } from "./ActionBarButton";
+import uniqid from "uniqid";
 
 export function ActionBarActions({
   actions,
@@ -16,7 +17,7 @@ export function ActionBarActions({
           <p className="action-bar__actions-label">Quick Actions</p>
 
           {actions.map((action) => (
-            <ActionBarButton action={action} key={crypto.randomUUID()} />
+            <ActionBarButton action={action} key={uniqid()} />
           ))}
         </>
       ) : (

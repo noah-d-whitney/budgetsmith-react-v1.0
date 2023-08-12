@@ -20,6 +20,7 @@ import { useLocalStorageState } from "./hooks/useLocalStorageState";
 import { calcDateDiff } from "./helpers";
 import { ArchivePage } from "./pages/ArchivePage";
 import { MessageModal } from "./components/MessageModal";
+import uniqid from "uniqid";
 
 function App() {
   // ANCHOR state
@@ -121,7 +122,7 @@ function App() {
       transactions,
       budgetPeriodStart,
       budgetPeriodEnd: new Date(),
-      id: crypto.randomUUID(),
+      id: uniqid(),
     };
     setBudgetArchive((archive) => {
       return [oldPeriodData, ...archive];
@@ -252,7 +253,7 @@ function App() {
   }
 
   function deleteCategory(id) {
-    const name = categories.find((cat) => cat.id === id);
+    const name = categories.find((cat) => cat.id === id).name;
     setCategories((cats) => cats.filter((cat) => cat.id !== id));
     setTransactions((trans) => trans.filter((tran) => tran.category !== name));
   }
