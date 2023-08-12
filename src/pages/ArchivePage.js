@@ -5,7 +5,7 @@ export function ArchivePage({ budgetArchive, onBudgetPeriod, readOnly }) {
   console.log(budgetArchive);
   return (
     <div className="container--view page--archive">
-      <h1>Archive</h1>
+      <h1 className="page-title">Archive</h1>
       <p className="subtitle">View previous budget periods in read-only mode</p>
       <div className="archive__item-container">
         {budgetArchive.length > 0 ? (

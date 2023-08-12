@@ -21,6 +21,7 @@ import { calcDateDiff } from "./helpers";
 import { ArchivePage } from "./pages/ArchivePage";
 import { MessageModal } from "./components/MessageModal";
 import uniqid from "uniqid";
+import { SettingsPage } from "./pages/SettingsPage";
 
 function App() {
   // ANCHOR state
@@ -396,6 +397,17 @@ function App() {
                   budgetArchive={budgetArchive}
                   onBudgetPeriod={getBudgetPeriod}
                   readOnly={readOnly}
+                />
+              }
+            />
+            <Route
+              exact
+              path="/settings"
+              element={
+                <SettingsPage
+                  readOnly={readOnly}
+                  firstName={firstName}
+                  onFirstName={setFirstName}
                 />
               }
             />
