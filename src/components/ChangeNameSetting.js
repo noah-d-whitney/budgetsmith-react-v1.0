@@ -2,18 +2,30 @@ import { useRef, useState } from "react";
 import { TableTaskBarButton } from "./TableTaskBarButton";
 import { FormInput } from "./FormInput";
 
-export function ChangeNameSetting({ firstName, onFirstName }) {
+export function ChangeNameSetting({
+  settingText,
+  settingState,
+  setSettingState,
+  placeholder,
+  inputType,
+}) {
   const [isEditing, setIsEditing] = useState(false);
-  const setNameInput = useRef();
+  const setInput = useRef();
 
-  function handleNameChange() {
-    onFirstName(setNameInput.current.value);
+  function handleChange() {
+    const value =
+      inputType === "number"
+        ? setInput.current.valueAsNumber
+        : setInput.current.value;
+    setSettingState(value);
     setIsEditing(false);
   }
 
   return (
     <div className="settings__parameter">
-      <p className="settings__parameter-current">First Name: {firstName}</p>
+      <p className="settings__parameter-current">
+        {settingText}: {settingState}
+      </p>
       {isEditing ? null : (
         <TableTaskBarButton text="Edit" callback={() => setIsEditing(true)} />
       )}
@@ -21,12 +33,16 @@ export function ChangeNameSetting({ firstName, onFirstName }) {
       {isEditing ? (
         <>
           <FormInput
-            ref={setNameInput}
-            className="text-field text-field--form"
-            placeholder="Type new name"
-            type="text"
+            ref={setInput}
+            className="text-field"
+            placeholder={placeholder}
+            type={inputType}
           />
-          <TableTaskBarButton text="Confirm" callback={handleNameChange} />{" "}
+          <TableTaskBarButton text="Confirm" callback={handleChange} />
+          <TableTaskBarButton
+            text="Cancel"
+            callback={() => setIsEditing(false)}
+          />
         </>
       ) : null}
     </div>

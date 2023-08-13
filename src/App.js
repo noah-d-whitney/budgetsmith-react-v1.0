@@ -408,6 +408,8 @@ function App() {
                   readOnly={readOnly}
                   firstName={firstName}
                   onFirstName={setFirstName}
+                  startingBalance={startingBalance}
+                  onStartingBalance={setStartingBalance}
                 />
               }
             />
