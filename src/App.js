@@ -347,7 +347,11 @@ function App() {
           readOnly={readOnly}
           returnToCurrentBudget={returnToCurrentBudget}
         />
-        <ActionBar firstName={firstName} profilePicURL={profilePicURL}>
+        <ActionBar
+          firstName={firstName}
+          profilePicURL={profilePicURL}
+          navigateTo={navigateTo}
+        >
           <ActionBarActions
             readOnly={readOnly}
             actions={[

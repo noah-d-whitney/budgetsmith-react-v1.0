@@ -1,8 +1,9 @@
-export function ActionBar({ firstName, children, profilePicURL }) {
+export function ActionBar({ firstName, children, profilePicURL, navigateTo }) {
   return (
     <div className="action-bar">
       <div className="action-bar__container">
         <img
+          onClick={() => navigateTo("/settings")}
           src={profilePicURL}
           alt="profile"
           className="action-bar__profile-picture"
