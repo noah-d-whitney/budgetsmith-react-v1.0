@@ -42,8 +42,10 @@
 
   &__profile-picture {
     height: 5rem;
+    width: 5rem;
     border-radius: 100px;
     border: 3px solid $primary__blue-medium-light;
+    object-fit: cover;
 
     &:hover,
     &:active {

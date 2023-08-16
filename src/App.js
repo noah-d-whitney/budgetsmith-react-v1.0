@@ -26,6 +26,10 @@ import { SettingsPage } from "./pages/SettingsPage";
 function App() {
   // ANCHOR state
   const [firstName, setFirstName] = useLocalStorageState("Lexie", "firstName");
+  const [profilePicURL, setProfilePicURL] = useLocalStorageState(
+    "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80",
+    "profilePicURL"
+  );
   const [readOnly, setReadOnly] = useLocalStorageState(false, "readOnly");
   const [startingBalance, setStartingBalance] = useLocalStorageState(
     1000,
@@ -197,6 +201,24 @@ function App() {
     }
   }
 
+  function handleSetBudgetPeriodStart(date) {
+    const inputDate = new Date(date + "T00:00:00");
+    const formattedDate = inputDate.toDateString();
+    if (inputDate > new Date()) return;
+    setBudgetPeriodStartState(formattedDate);
+  }
+
+  function reset() {
+    setCategories([]);
+    setTransactions([]);
+    setBudgetPeriodStartState(new Date());
+    setBudgetPeriodEndState(null);
+    setBudgetArchive([]);
+    setStartingBalance(0);
+    closeModal();
+    navigateTo("/");
+  }
+
   // ANCHOR calcCurrentBalance()
   function calcCurrentBalance() {
     return transactions.reduce(
@@ -301,7 +323,7 @@ function App() {
         note,
         receipt,
         flagged,
-        date
+        new Date(date + "T00:00:00")
       ),
       ...cats,
     ]);
@@ -325,7 +347,7 @@ function App() {
           readOnly={readOnly}
           returnToCurrentBudget={returnToCurrentBudget}
         />
-        <ActionBar firstName={firstName}>
+        <ActionBar firstName={firstName} profilePicURL={profilePicURL}>
           <ActionBarActions
             readOnly={readOnly}
             actions={[
@@ -406,10 +428,15 @@ function App() {
               element={
                 <SettingsPage
                   readOnly={readOnly}
+                  onReset={() => openModal("reset")}
                   firstName={firstName}
                   onFirstName={setFirstName}
                   startingBalance={startingBalance}
                   onStartingBalance={setStartingBalance}
+                  profilePicURL={profilePicURL}
+                  onProfilePicURL={setProfilePicURL}
+                  budgetPeriodStart={budgetPeriodStart}
+                  onBudgetPeriodStart={handleSetBudgetPeriodStart}
                 />
               }
             />
@@ -469,6 +496,18 @@ function App() {
             heading="Read-Only Mode"
             closeModal={closeModal}
             continueButton={false}
+          />
+        </Modal>
+      ) : null}
+      {modal === "reset" ? (
+        <Modal closeModal={closeModal}>
+          <MessageModal
+            message="Are you sure you want to reset? This will erase all history, transactions and categories along with resetting your start date and balance."
+            heading="Reset?"
+            closeModal={closeModal}
+            continueButton={true}
+            callback={reset}
+            buttonText="Reset"
           />
         </Modal>
       ) : null}

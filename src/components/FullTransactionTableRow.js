@@ -20,7 +20,9 @@ export function FullTransactionTableRow({
         )}
       </div>
       <div className="fullpage-table__cell--body value--flag">
-        {readOnly ? null : (
+        {readOnly ? (
+          <TableFlag isFlagged={data.flagged} />
+        ) : (
           <TableFlag
             isFlagged={data.flagged}
             onFlagged={() => onFlagTransaction(data.id)}

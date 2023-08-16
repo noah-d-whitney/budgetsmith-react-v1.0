@@ -2,7 +2,6 @@ import { ArchiveItem } from "../components/ArchiveItem";
 import uniqid from "uniqid";
 
 export function ArchivePage({ budgetArchive, onBudgetPeriod, readOnly }) {
-  console.log(budgetArchive);
   return (
     <div className="container--view page--archive">
       <h1 className="page-title">Archive</h1>

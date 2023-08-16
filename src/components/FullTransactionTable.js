@@ -21,7 +21,6 @@ export function FullTransactionTable({
 
   const data = !isFiltered ? tableData : filterData(tableData);
   const renderData = sortBy(data, sort, sortOrder);
-  console.log(renderData);
 
   function filterData(data) {
     if (typeFilter !== "All") {

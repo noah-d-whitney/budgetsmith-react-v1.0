@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { TableTaskBarButton } from "./TableTaskBarButton";
 import { FormInput } from "./FormInput";
 
-export function ChangeNameSetting({
+export function Setting({
   settingText,
   settingState,
   setSettingState,
@@ -24,26 +24,31 @@ export function ChangeNameSetting({
   return (
     <div className="settings__parameter">
       <p className="settings__parameter-current">
-        {settingText}: {settingState}
+        {settingText}:{" "}
+        {settingState.toString().length >= 30
+          ? settingState.toString().slice(0, 30) + "..."
+          : settingState}
       </p>
       {isEditing ? null : (
         <TableTaskBarButton text="Edit" callback={() => setIsEditing(true)} />
       )}
       {/* <form></form> */}
       {isEditing ? (
-        <>
+        <form className="settings__form" onSubmit={handleChange}>
           <FormInput
             ref={setInput}
             className="text-field"
             placeholder={placeholder}
             type={inputType}
+            required={true}
           />
-          <TableTaskBarButton text="Confirm" callback={handleChange} />
+          <TableTaskBarButton text="Confirm" formAction={"submit"} />
           <TableTaskBarButton
             text="Cancel"
+            formAction={"reset"}
             callback={() => setIsEditing(false)}
           />
-        </>
+        </form>
       ) : null}
     </div>
   );

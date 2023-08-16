@@ -22,7 +22,7 @@ export function GrowthTable({ balances }) {
               increase > 0 ? "green" : "red"
             }`}
           >
-            {Math.round(increase)}%
+            {increase ? Math.round(increase) : 0}%
           </div>
         </div>
       </div>

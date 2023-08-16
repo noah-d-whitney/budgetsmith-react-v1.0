@@ -1,0 +1,32 @@
+.settings {
+  &__container {
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin: 3rem 0 6rem 0;
+  }
+
+  &__parameter {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    justify-content: left;
+
+    &-current {
+      font-size: 2.4rem;
+      font-weight: 700;
+      min-width: fit-content;
+    }
+
+    & .text-field {
+      width: 25rem;
+    }
+  }
+
+  &__form {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+}

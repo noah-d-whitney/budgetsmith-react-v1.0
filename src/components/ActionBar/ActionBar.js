@@ -1,9 +1,9 @@
-export function ActionBar({ firstName, children }) {
+export function ActionBar({ firstName, children, profilePicURL }) {
   return (
     <div className="action-bar">
       <div className="action-bar__container">
         <img
-          src={require("../../img/profile-placeholder.jpg")}
+          src={profilePicURL}
           alt="profile"
           className="action-bar__profile-picture"
           role="button"
