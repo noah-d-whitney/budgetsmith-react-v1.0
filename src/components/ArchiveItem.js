@@ -1,5 +1,5 @@
 import { formatDate } from "../helpers";
-import { TableTaskBarButton } from "./TableTaskBarButton";
+import { TableTaskBarButton } from "./TableComponents/TableTaskBarButton";
 
 export function ArchiveItem({ data, onBudgetPeriod, readOnly }) {
   return (

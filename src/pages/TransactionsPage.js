@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { FullTransactionTable } from "../components/FullTransactionTable";
-import { TransactionsTableTaskbar } from "../components/TransactionsTableTaskbar";
+import { FullTransactionTable } from "../components/Tables/FullTransactionTable";
+import { TransactionsTableTaskbar } from "../components/TableComponents/TransactionsTableTaskbar";
 
 export function TransactionsPage({
   transactions,

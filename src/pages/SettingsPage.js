@@ -1,5 +1,5 @@
 import { Setting } from "../components/Setting";
-import { TableTaskBarButton } from "../components/TableTaskBarButton";
+import { TableTaskBarButton } from "../components/TableComponents/TableTaskBarButton";
 import { formatDate } from "../helpers";
 
 export function SettingsPage({

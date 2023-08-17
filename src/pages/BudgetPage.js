@@ -1,5 +1,5 @@
-import { FullBudgetTable } from "../components/FullBudgetTable";
-import { BudgetTableTaskBar } from "../components/BudgetTableTaskBar";
+import { FullBudgetTable } from "../components/Tables/FullBudgetTable";
+import { BudgetTableTaskBar } from "../components/TableComponents/BudgetTableTaskBar";
 import { useState } from "react";
 
 export function BudgetPage({

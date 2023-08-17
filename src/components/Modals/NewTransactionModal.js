@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
-import { FormRadio } from "./FormRadio";
-import { Dropdown } from "./Dropdown";
-import { FormInput } from "./FormInput";
-import { FormCheckbox } from "./FormCheckbox";
+import { FormRadio } from "../FormComponents/FormRadio";
+import { Dropdown } from "../FormComponents/Dropdown";
+import { FormInput } from "../FormComponents/FormInput";
+import { FormCheckbox } from "../FormComponents/FormCheckbox";
 
 export function NewTransactionModal({
   categories,

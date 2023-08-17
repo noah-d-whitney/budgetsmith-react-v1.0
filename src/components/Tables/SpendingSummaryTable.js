@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { SpendingSummaryTableRow } from "./SpendingSummaryTableRow";
+import { SpendingSummaryTableRow } from "../TableComponents/SpendingSummaryTableRow";
 
 export function SpendingSummaryTable({ budgetTableData }) {
   return (

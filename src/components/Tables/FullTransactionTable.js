@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FullTransactionTableRow } from "./FullTransactionTableRow";
+import { FullTransactionTableRow } from "../TableComponents/FullTransactionTableRow";
 
 export function FullTransactionTable({
   tableData,

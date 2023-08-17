@@ -1,27 +1,31 @@
 import { useState } from "react";
-import { StatusBar } from "./components/StatusBar";
-import { ActionBar } from "./components/ActionBar/ActionBar";
-import "./css/style.css";
-import { Navbar } from "./components/Navbar";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
+import uniqid from "uniqid";
+
+import "./css/style.css";
+import { useLocalStorageState } from "./hooks/useLocalStorageState";
+import { calcDateDiff } from "./helpers";
+
+import { StatusBar } from "./components/StatusBar/StatusBar";
+import { ActionBar } from "./components/ActionBar/ActionBar";
+import { Navbar } from "./components/Navbar/Navbar";
 import { HomePage } from "./pages/HomePage";
 import { BudgetPage } from "./pages/BudgetPage";
 import { Category, Transaction, ActionBarAction } from "./dataClasses";
 import { ActionBarActions } from "./components/ActionBar/ActionBarActions";
-import { BalanceTable } from "./components/BalanceTable";
-import { GrowthTable } from "./components/GrowthTable";
-import { SpendingSummaryTable } from "./components/SpendingSummaryTable";
-import { SummaryTable } from "./components/SummaryTable";
-import { Modal } from "./components/Modal";
-import { NewCategoryModal } from "./components/NewCategoryModal";
+import { BalanceTable } from "./components/Tables/BalanceTable";
+import { GrowthTable } from "./components/Tables/GrowthTable";
+import { SpendingSummaryTable } from "./components/Tables/SpendingSummaryTable";
+import { SummaryTable } from "./components/Tables/SummaryTable";
+import { Modal } from "./components/Modals/Modal";
+import { NewCategoryModal } from "./components/Modals/NewCategoryModal";
 import { TransactionsPage } from "./pages/TransactionsPage";
-import { NewTransactionModal } from "./components/NewTransactionModal";
-import { useLocalStorageState } from "./hooks/useLocalStorageState";
-import { calcDateDiff } from "./helpers";
+import { NewTransactionModal } from "./components/Modals/NewTransactionModal";
 import { ArchivePage } from "./pages/ArchivePage";
-import { MessageModal } from "./components/MessageModal";
-import uniqid from "uniqid";
+import { MessageModal } from "./components/Modals/MessageModal";
 import { SettingsPage } from "./pages/SettingsPage";
+import { BudgetPeriodBtn } from "./components/StatusBar/BudgetPeriodBtn";
+import { BudgetPeriod } from "./components/StatusBar/BudgetPeriod";
 
 function App() {
   // ANCHOR state
@@ -30,12 +34,10 @@ function App() {
     "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80",
     "profilePicURL"
   );
-  const [readOnly, setReadOnly] = useLocalStorageState(false, "readOnly");
   const [startingBalance, setStartingBalance] = useLocalStorageState(
     1000,
     "startingBalance"
   );
-  const [modal, setModal] = useState(null);
   const [categories, setCategories] = useLocalStorageState(
     [
       new Category("rent", "expense", 750, "bill"),
@@ -74,6 +76,7 @@ function App() {
   const budgetPeriodEnd = budgetPeriodEndState
     ? new Date(budgetPeriodEndState)
     : null;
+
   const budgetPeriodDuration = budgetPeriodEnd
     ? calcDateDiff(budgetPeriodStart, budgetPeriodEnd)
     : calcDateDiff(budgetPeriodStart, new Date());
@@ -118,7 +121,10 @@ function App() {
   const categoryNames = categories.map((cat) => cat.name);
   const location = useLocation();
   const pathName = location.pathname;
+  const [readOnly, setReadOnly] = useLocalStorageState(false, "readOnly");
+  const [modal, setModal] = useState(null);
 
+  // ANCHOR newBudgetPeriod()
   function newBudgetPeriod() {
     const oldPeriodData = {
       startingBalance,
@@ -145,6 +151,7 @@ function App() {
     successMessage();
   }
 
+  // ANCHOR getBudgetPeriod()
   function getBudgetPeriod(id) {
     // Sets read-only mode to true
     setReadOnly(true);
@@ -171,12 +178,14 @@ function App() {
     switchToReadOnly();
   }
 
+  // ANCHOR switchToReadOnly()
   function switchToReadOnly() {
     navigateTo("/");
     openModal("switch-read-only");
     setTimeout(closeModal, 3000);
   }
 
+  // ANCHOR returnToCurrentBudget()
   function returnToCurrentBudget() {
     setReadOnly(false);
 
@@ -192,6 +201,7 @@ function App() {
     window.localStorage.removeItem("currentBudgetData");
   }
 
+  // ANCHOR handleNewPeriodRequest()
   function handleNewPeriodRequest() {
     if (budgetPeriodDuration.totalDays >= 7) {
       openModal("new-period");
@@ -201,6 +211,7 @@ function App() {
     }
   }
 
+  // ANCHOR handleSetBudgetPeriodStart()
   function handleSetBudgetPeriodStart(date) {
     const inputDate = new Date(date + "T00:00:00");
     const formattedDate = inputDate.toDateString();
@@ -208,6 +219,7 @@ function App() {
     setBudgetPeriodStartState(formattedDate);
   }
 
+  // ANCHOR reset()
   function reset() {
     setCategories([]);
     setTransactions([]);
@@ -260,6 +272,7 @@ function App() {
     }
   }
 
+  // ANCHOR getBudgetTableData()
   function getBudgetTableData() {
     const budgetTableData = categories.map((cat) => {
       const actual = calcCategoryActual(cat.name);
@@ -275,16 +288,19 @@ function App() {
     return budgetTableData;
   }
 
+  // ANCHOR deleteCategory()
   function deleteCategory(id) {
     const name = categories.find((cat) => cat.id === id).name;
     setCategories((cats) => cats.filter((cat) => cat.id !== id));
     setTransactions((trans) => trans.filter((tran) => tran.category !== name));
   }
 
+  // ANCHOR deleteTransaction()
   function deleteTransaction(ids) {
     setTransactions((trans) => trans.filter((tran) => !ids.includes(tran.id)));
   }
 
+  // ANCHOR flagTransaction()
   function flagTransaction(id) {
     setTransactions(function (trans) {
       const transaction = trans.find((t) => t.id === id);
@@ -302,10 +318,12 @@ function App() {
     });
   }
 
+  // ANCHOR addCategory()
   function addCategory(name, type, budget, tag) {
     setCategories((cats) => [new Category(name, type, budget, tag), ...cats]);
   }
 
+  // ANCHOR addTransaction()
   function addTransaction(
     category,
     type,
@@ -329,24 +347,35 @@ function App() {
     ]);
   }
 
+  // ANCHOR openModal()
   function openModal(modal) {
     setModal(modal);
   }
 
+  // ANCHOR closeModal()
   function closeModal() {
     setModal(null);
   }
 
+  // ANCHOR jsx
   return (
     <>
+      {/* ANCHOR header */}
       <header>
-        <StatusBar
-          budgetPeriodStart={budgetPeriodStart}
-          budgetPeriodEnd={budgetPeriodEnd}
-          newBudgetPeriod={handleNewPeriodRequest}
-          readOnly={readOnly}
-          returnToCurrentBudget={returnToCurrentBudget}
-        />
+        <StatusBar>
+          <BudgetPeriod
+            readOnly={readOnly}
+            navitageTo={navigateTo}
+            budgetPeriodStart={budgetPeriodStart}
+            budgetPeriodEnd={budgetPeriodEnd}
+          />
+          <BudgetPeriodBtn
+            readOnly={readOnly}
+            onNewBudgetPeriod={handleNewPeriodRequest}
+            onReturnToCurrent={returnToCurrentBudget}
+          />
+        </StatusBar>
+
         <ActionBar
           firstName={firstName}
           profilePicURL={profilePicURL}
@@ -372,6 +401,7 @@ function App() {
         <div className="container">
           <Navbar pathName={pathName} />
 
+          {/* ANCHOR pages */}
           <Routes>
             <Route
               exact
@@ -447,11 +477,13 @@ function App() {
           </Routes>
         </div>
       </main>
-      {modal === "new-category" ? (
-        <Modal closeModal={closeModal}>
-          <NewCategoryModal addCategory={addCategory} closeModal={closeModal} />
-        </Modal>
-      ) : null}
+
+      {/* ANCHOR modals */}
+
+      <Modal closeModal={closeModal} open={modal === "new-category"}>
+        <NewCategoryModal addCategory={addCategory} closeModal={closeModal} />
+      </Modal>
+
       {modal === "new-transaction" ? (
         <Modal closeModal={closeModal}>
           <NewTransactionModal

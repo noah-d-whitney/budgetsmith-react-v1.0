@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
-import { TableTaskBarButton } from "./TableTaskBarButton";
-import { FormInput } from "./FormInput";
+import { TableTaskBarButton } from "./TableComponents/TableTaskBarButton";
+import { FormInput } from "./FormComponents/FormInput";
 
 export function Setting({
   settingText,

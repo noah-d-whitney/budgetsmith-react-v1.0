@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FullBudgetTableRow } from "./FullBudgetTableRow";
+import { FullBudgetTableRow } from "../TableComponents/FullBudgetTableRow";
 
 export function FullBudgetTable({
   tableData,

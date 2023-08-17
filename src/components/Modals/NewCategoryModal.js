@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
-import { Dropdown } from "./Dropdown";
-import { FormInput } from "./FormInput";
-import { FormRadio } from "./FormRadio";
+import { Dropdown } from "../FormComponents/Dropdown";
+import { FormInput } from "../FormComponents/FormInput";
+import { FormRadio } from "../FormComponents/FormRadio";
 
 export function NewCategoryModal({ addCategory, closeModal }) {
   const categoryBudgetInput = useRef();
