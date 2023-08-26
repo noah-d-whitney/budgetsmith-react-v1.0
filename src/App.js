@@ -371,7 +371,7 @@ function App() {
           />
           <BudgetPeriodBtn
             readOnly={readOnly}
-            onNewBudgetPeriod={handleNewPeriodRequest}
+            onNewBudgetPeriod={newBudgetPeriod}
             onReturnToCurrent={returnToCurrentBudget}
           />
         </StatusBar>
