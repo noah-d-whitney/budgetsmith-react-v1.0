@@ -2,6 +2,7 @@ export function formatDate(date) {
   return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
 }
 
+// calcDateDiff()
 export function calcDateDiff(startDate, endDate = new Date()) {
   // get difference in days
   const diffInMS = endDate - startDate;
